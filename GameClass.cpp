@@ -7,15 +7,15 @@ using namespace std;
 
 Game::Game()
 : mWindow(sf::VideoMode({800, 600}), "Dungeon Adventures"){
-} //trzeba dodaæ oddzieln¹ wartoœæ window size
+} //trzeba dodac oddzielne wartosci window size
 
 void Game::run() {
     sf::Clock clock;
     while (mWindow.isOpen()) {
-        sf::Time deltaTime = clock.restart(); //g³ówny zegar gry
-        processEvents();                      //obs³uga eventów
-        update(deltaTime);                    //update wszystkich obiektów
-        render();                             //render wszystkich obiektów: trzeba rozdzieliæ na kilka renderów zale¿nie od menu
+        sf::Time deltaTime = clock.restart(); //glowny zegar gry
+        processEvents();                      //obsluga eventï¿½w
+        update(deltaTime);                    //update wszystkich obiektï¿½w
+        render();                             //render wszystkich obiektï¿½w: trzeba rozdzieliï¿½ na kilka renderï¿½w zaleï¿½nie od menu
     }
 }
 
@@ -24,16 +24,16 @@ void Game::processEvents() {
         {
             if (event->is<sf::Event::Closed>())
                 mWindow.close();
-            //tutaj dodawaæ kolejne eventy
+            //tutaj dodawac kolejne eventy
         }
 }
 
 void Game::update(sf::Time deltaTime) {
-    // update wszystkich obiektów + logika gry
+    // update wszystkich obiektï¿½w + logika gry
 }
 
 void Game::render() {
     mWindow.clear();
-    // Rysowanie obiektów
+    // Rysowanie obiektï¿½w
     mWindow.display();
 }
