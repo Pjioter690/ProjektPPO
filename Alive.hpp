@@ -10,7 +10,10 @@ public:
     void Attack(); //pozwala atakowac inne obiekty
     void DealDmg(float enemyDmg); //zadaje obrazenia temu obiektowi
     void addArmor(float armor); //zwieksza armor o zadana wartosc
+    sf::Vector2f getPosition() const;
 protected:
+    sf::Texture texture;
+    sf::Vector2f position;
     float hp;
     float dmg;
     float armor;
@@ -20,7 +23,6 @@ class Hero : public Alive{
 public:
     void control(); //poruszanie siê postaci¹
     void lvlUp(); //zwiêkszanie poziomu postaci
-    sf::Vector2f getPosition() const;
 protected:
     Hero(float hp, float dmg, float armor, float mana);
 private:
@@ -46,7 +48,6 @@ class Enemy : public Alive
 {
 public:
     void trackPlayer();     //nearby player tracking
-    sf::Vector2f getPosition() const;
 protected:
     Enemy(float hp, float dmg, float armor, float speed);
 private:

@@ -3,6 +3,11 @@
 Alive::Alive(float hp, float dmg, float armor, float speed)
     : hp(hp), dmg(dmg), armor(armor) {}
 
+sf::Vector2f Alive::getPosition() const
+{
+    return position;
+}
+
 Hero::Hero(float hp, float dmg, float armor, float mana)
     : Alive(hp, dmg, armor,5.f),mana(mana),exp(0),lvl(1){}
 
@@ -34,6 +39,11 @@ Rogue::Rogue()
 
 Enemy::Enemy(float hp, float dmg, float armor, float speed)
      : Alive(hp, dmg, armor,speed){}
+
+void Enemy::trackPlayer()
+{
+    //work in progress
+}
 
 Zombie::Zombie()
       : Enemy(100.0f, 20.0f, 30.0f, 2.5f) {}
