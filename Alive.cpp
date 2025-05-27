@@ -28,3 +28,15 @@ Wizard::Wizard()
 
 Rogue::Rogue()
     : Hero(120.0f, 25.0f, 20.0f, 50.f) {}
+
+
+//----Enemy----
+
+Enemy::Enemy(float hp, float dmg, float armor, float speed)
+     : Alive(hp, dmg, armor), speed(speed) {}
+
+Zombie::Zombie()
+      : Enemy(100.0f, 20.0f, 30.0f, 2.5f) {}
+
+Goblin::Goblin()
+      : Enemy(50.0f, 10.0f, 15.0f, 6.0f) {}

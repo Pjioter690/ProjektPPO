@@ -41,4 +41,26 @@ class Rogue : public Hero{
 public:
     Rogue();
 };
+//----{Enemy}----
+class Enemy : public Alive
+{
+public:
+    void trackPlayer();     //nearby player tracking
+    sf::Vector2f getPosition() const;
+protected:
+    Enemy(float hp, float dmg, float armor, float speed);
+private:
+    sf::Vector2f position;
+    float speed;
+};
+
+class Zombie : public Enemy
+{
+    Zombie();
+};
+
+class Goblin : public Enemy
+{
+    Goblin();
+};
 #endif
