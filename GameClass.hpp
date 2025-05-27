@@ -3,6 +3,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
+#include"MainMenu.hpp"
+
 class Game {
 public:
     Game();
@@ -16,6 +18,9 @@ private:
 private:
     sf::RenderWindow mWindow;
     sf::Time mTimePerFrame;
+    sf::Vector2f windowSize;
+    int scale;
+    MainMenu mainMenu;
 };
 
 #endif

@@ -4,8 +4,11 @@ using namespace std;
 
 #include "GameClass.hpp"
 
-Game::Game()
-: mWindow(sf::VideoMode({800, 600}), "Dungeon Adventures"){
+Game::Game(){
+    scale = 60; //skala 120 to prawdopodobnie fullscreen
+    windowSize.x = 16*scale;
+    windowSize.y = 9*scale;
+    mWindow.create(sf::VideoMode({960,540}), "Dungeon Adventures",sf::Style::Default);
 } //trzeba dodac oddzielne wartosci window size
 
 void Game::run() {
@@ -33,6 +36,9 @@ void Game::update(sf::Time deltaTime) {
 
 void Game::render() {
     mWindow.clear();
+    while(mainMenu.checkIfOpen()){
+        //mainMenu.draw(mWindow);
+    }
     // Rysowanie obiekt�w
     mWindow.display();
 }

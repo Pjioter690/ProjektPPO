@@ -21,13 +21,13 @@ void Hero::control(){
     }
 }
 Knight::Knight()
-    : Hero(150.0f, 20.0f, 50.0f, 50.f) {}
+    : Hero(200.0f, 20.0f, 5.0f, 50.f) {}
 
 Wizard::Wizard()
-    : Hero(100.0f, 40.0f, 10.0f, 100.f) {}
+    : Hero(100.0f, 40.0f, 0.0f, 100.f) {}
 
 Rogue::Rogue()
-    : Hero(120.0f, 25.0f, 20.0f, 50.f) {}
+    : Hero(150.0f, 25.0f, 2.0f, 50.f) {}
 
 
 //----Enemy----
