@@ -6,7 +6,7 @@
 
 class Alive{
 public:
-    Alive(float hp, float dmg, float armor);
+    Alive(float hp, float dmg, float armor, float speed);
     void Attack(); //pozwala atakowac inne obiekty
     void DealDmg(float enemyDmg); //zadaje obrazenia temu obiektowi
     void addArmor(float armor); //zwieksza armor o zadana wartosc
@@ -14,6 +14,7 @@ protected:
     float hp;
     float dmg;
     float armor;
+    float speed;
 };
 class Hero : public Alive{
 public:
@@ -27,7 +28,6 @@ private:
     float exp;
     float lvl;
     sf::Vector2f position;
-    float speed;
 };
 class Knight : public Hero{
 public:
@@ -51,7 +51,6 @@ protected:
     Enemy(float hp, float dmg, float armor, float speed);
 private:
     sf::Vector2f position;
-    float speed;
 };
 
 class Zombie : public Enemy

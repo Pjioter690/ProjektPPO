@@ -1,10 +1,10 @@
 #include "Alive.hpp"
 
-Alive::Alive(float hp, float dmg, float armor)
+Alive::Alive(float hp, float dmg, float armor, float speed)
     : hp(hp), dmg(dmg), armor(armor) {}
 
 Hero::Hero(float hp, float dmg, float armor, float mana)
-    : Alive(hp, dmg, armor),mana(mana),exp(0),lvl(1),speed(5.f){}
+    : Alive(hp, dmg, armor,5.f),mana(mana),exp(0),lvl(1){}
 
 void Hero::control(){
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::W)) {
@@ -33,7 +33,7 @@ Rogue::Rogue()
 //----Enemy----
 
 Enemy::Enemy(float hp, float dmg, float armor, float speed)
-     : Alive(hp, dmg, armor), speed(speed) {}
+     : Alive(hp, dmg, armor,speed){}
 
 Zombie::Zombie()
       : Enemy(100.0f, 20.0f, 30.0f, 2.5f) {}
