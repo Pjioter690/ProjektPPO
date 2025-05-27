@@ -8,8 +8,10 @@ class Alive{
 public:
     Alive(float hp, float dmg, float armor, float speed);
     void Attack(); //pozwala atakowac inne obiekty
-    void DealDmg(float enemyDmg); //zadaje obrazenia temu obiektowi
+    void dealDmg(float enemyDmg); //zadaje obrazenia temu obiektowi
     void addArmor(float armor); //zwieksza armor o zadana wartosc
+    void update();
+    void animate();
     sf::Vector2f getPosition() const;
 protected:
     sf::Texture texture;
@@ -62,5 +64,15 @@ class Zombie : public Enemy
 class Goblin : public Enemy
 {
     Goblin();
+};
+
+class Skeleton : public Enemy
+{
+    Skeleton();
+};
+
+class Boss : public Enemy
+{
+    Boss();
 };
 #endif

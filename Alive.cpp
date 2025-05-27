@@ -1,5 +1,7 @@
 #include "Alive.hpp"
 
+//----Alive----
+
 Alive::Alive(float hp, float dmg, float armor, float speed)
     : hp(hp), dmg(dmg), armor(armor) {}
 
@@ -7,6 +9,21 @@ sf::Vector2f Alive::getPosition() const
 {
     return position;
 }
+
+void Alive::addArmor(float addArmor)
+{
+    armor+=addArmor;
+}
+void Alive::update()
+{
+    //Work in Progress
+}
+
+void Alive::animate()
+{
+    //Work in Progress
+}
+//----Hero----
 
 Hero::Hero(float hp, float dmg, float armor, float mana)
     : Alive(hp, dmg, armor,5.f),mana(mana),exp(0),lvl(1){}
@@ -42,7 +59,7 @@ Enemy::Enemy(float hp, float dmg, float armor, float speed)
 
 void Enemy::trackPlayer()
 {
-    //work in progress
+    //Work in Progress
 }
 
 Zombie::Zombie()
@@ -50,3 +67,9 @@ Zombie::Zombie()
 
 Goblin::Goblin()
       : Enemy(50.0f, 10.0f, 15.0f, 6.0f) {}
+
+Skeleton::Skeleton()
+        : Enemy(10.0f, 25.0f, 20.0f, 4.5f) {}
+
+Boss::Boss()
+    : Enemy(1000.0f, 50.0f, 35.0f, 3.0f) {}
