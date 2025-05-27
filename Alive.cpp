@@ -6,17 +6,17 @@ Alive::Alive(float hp, float dmg, float armor)
 Hero::Hero(float hp, float dmg, float armor, float mana)
     : Alive(hp, dmg, armor),mana(mana),exp(0),lvl(1),speed(5.f){}
 
-Hero::control(){
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+void Hero::control(){
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::W)) {
         position.y -= speed;
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::S)) {
         position.y += speed;
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::A)) {
         position.x -= speed;
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::D)) {
         position.x += speed;
     }
 }

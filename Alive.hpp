@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 
+
 class Alive{
 public:
     Alive(float hp, float dmg, float armor);
