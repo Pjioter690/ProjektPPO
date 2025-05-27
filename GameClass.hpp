@@ -1,6 +1,6 @@
 #ifndef GAME_HPP
 #define GAME_HPP
-
+#pragma once
 #include <SFML/Graphics.hpp>
 
 class Game {

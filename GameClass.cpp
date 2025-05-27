@@ -1,6 +1,5 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#pragma Once
 using namespace std;
 
 #include "GameClass.hpp"
