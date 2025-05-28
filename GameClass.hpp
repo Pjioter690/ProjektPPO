@@ -14,12 +14,13 @@ private:
     void processEvents();
     void update(sf::Time deltaTime);
     void render();
+    int scale;
+    int windowWidth, windowHeight;
 
-private:
     sf::RenderWindow mWindow;
     sf::Time mTimePerFrame;
-    sf::Vector2f windowSize;
-    int scale;
+
+
     MainMenu mainMenu;
 };
 
