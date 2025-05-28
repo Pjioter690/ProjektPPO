@@ -7,9 +7,6 @@ MainMenu::MainMenu() : start(font, "Start Game", 30)
     {
         cerr << "Nie udalo sie wczytac czcionki!\n";
     }
-    start.setFont(font);
-    start.setString("Start Game");
-    start.setCharacterSize(30);
     start.setFillColor(sf::Color::White);
     start.setPosition({100.f, 100.f});
 
