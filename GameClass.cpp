@@ -37,7 +37,7 @@ void Game::update(sf::Time deltaTime) {
 void Game::render() {
     mWindow.clear();
     while(mainMenu.checkIfOpen()){
-        //mainMenu.draw(mWindow);
+        mainMenu.draw(mWindow);
     }
     // Rysowanie obiekt�w
     mWindow.display();

@@ -1,6 +1,7 @@
 #ifndef MAINMENU_HPP
 #define MAINMENU_HPP
-
+using namespace std;
+#include <iostream>
 #include <SFML/Graphics.hpp>
 
 class MainMenu{
@@ -10,9 +11,9 @@ public:
     void draw(sf::RenderWindow& window);
     bool checkIfOpen();
 private:
-    //sf::Text start;
+    sf::Font font;
+    sf::Text start;
     sf::RectangleShape startButton;
     bool isOpen;
-    sf::Font font;
 };
 #endif // MAINMENU_HPP
