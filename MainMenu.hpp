@@ -17,6 +17,8 @@ private:
     sf::Text start;
     sf::RectangleShape startButton;
     bool isOpen;
-    sf::Vector2f setOrigin();
+    template<typename T>
+    void centerOrigin(T& drawable);
+
 };
 #endif // MAINMENU_HPP

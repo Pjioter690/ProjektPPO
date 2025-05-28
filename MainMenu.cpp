@@ -10,15 +10,13 @@ MainMenu::MainMenu(int windowWidth, int windowHeight) : start(font, "Start Game"
     float screenCentreY = windowHeight/2;
 
     start.setFillColor(sf::Color::White);
-    sf::FloatRect bounds = start.getLocalBounds();
-    float originX = bounds.position.x + bounds.size.x / 2.f;
-    float originY = bounds.position.y + bounds.size.y / 2.f;
-    start.setOrigin({originX, originY});
+    centerOrigin(start);
     start.setPosition({static_cast<float>(windowWidth) / 2.f, static_cast<float>(windowHeight) / 2.f});
 
     startButton.setSize(sf::Vector2f(200.f, 50.f));
     startButton.setFillColor(sf::Color::Blue);
-    startButton.setPosition({90.f,90.f});
+    centerOrigin(startButton);
+    startButton.setPosition({static_cast<float>(windowWidth) / 2.f, static_cast<float>(windowHeight) / 2.f});
 }
 void MainMenu::changeMenu(){
     isOpen = !isOpen;
@@ -29,5 +27,11 @@ void MainMenu::draw(sf::RenderWindow& window){
 }
 bool MainMenu::checkIfOpen(){
     return isOpen;
+}
+template<typename T>
+void MainMenu::centerOrigin(T& drawable){
+    sf::FloatRect bounds = drawable.getLocalBounds();
+    drawable.setOrigin({bounds.position.x + bounds.size.x / 2.f,
+                       bounds.position.y + bounds.size.y / 2.f});
 }
 
