@@ -49,7 +49,7 @@ public:
 class Enemy : public Alive
 {
 public:
-    void trackPlayer();     //nearby player tracking
+    void trackPlayer(const sf::Vector2f& playerPos);            //sledzenie najblizszego gracza
 protected:
     Enemy(float hp, float dmg, float armor, float speed);
 private:
