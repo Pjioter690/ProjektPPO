@@ -39,7 +39,7 @@ void Game::update(sf::Time deltaTime) {
 }
 
 void Game::render() {
-    while(mainMenu.checkIfOpen())
+    if(mainMenu.checkIfOpen()==true)
     {
         mWindow.clear();
         mainMenu.draw(mWindow);
