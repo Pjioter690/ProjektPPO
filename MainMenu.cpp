@@ -18,8 +18,8 @@ void MainMenu::changeMenu(){
     isOpen = !isOpen;
 }
 void MainMenu::draw(sf::RenderWindow& window){
-    window.draw(start);
     window.draw(startButton);
+    window.draw(start);
 }
 bool MainMenu::checkIfOpen(){
     return isOpen;

@@ -35,10 +35,10 @@ void Game::update(sf::Time deltaTime) {
 }
 
 void Game::render() {
-    mWindow.clear();
-    while(mainMenu.checkIfOpen()){
+    while(mainMenu.checkIfOpen())
+    {
+        mWindow.clear();
         mainMenu.draw(mWindow);
+        mWindow.display();
     }
-    // Rysowanie obiekt�w
-    mWindow.display();
 }
