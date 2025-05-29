@@ -7,13 +7,9 @@ using namespace std;
 Game::Game(): scale(60),
     windowWidth(16*scale),//skala 120 to prawdopodobnie fullscreen
     windowHeight(9*scale),
-    mainMenu(windowWidth, windowHeight){
+    mainMenu(windowWidth, windowHeight, scale){
     mWindow.create(sf::VideoMode({static_cast<unsigned int>(windowWidth),static_cast<unsigned int>(windowHeight)}), "Dungeon Adventures",sf::Style::Titlebar | sf::Style::Close);
-    cout<<"skala: "<<scale<<endl;
-    cout<<"Teoretyczna szerokosc: "<<scale*16<<endl;
-    cout<<mWindow.getSize().x;
-
-} //trzeba dodac oddzielne wartosci window size
+}
 
 void Game::run() {
     sf::Clock clock;
@@ -30,6 +26,9 @@ void Game::processEvents() {
         {
             if (event->is<sf::Event::Closed>())
                 mWindow.close();
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Escape))
+                if(mainMenu.checkIfOpen())
+                    mWindow.close();
             //tutaj dodawac kolejne eventy
         }
 }
@@ -39,7 +38,7 @@ void Game::update(sf::Time deltaTime) {
 }
 
 void Game::render() {
-    if(mainMenu.checkIfOpen()==true)
+    if(mainMenu.checkIfOpen())
     {
         mWindow.clear();
         mainMenu.draw(mWindow);
