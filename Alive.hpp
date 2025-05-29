@@ -25,12 +25,24 @@ class Hero : public Alive{
 public:
     void control(); //poruszanie siê postaci¹
     void lvlUp(); //zwiêkszanie poziomu postaci
+
+    //Metody do uzyskania danych
+    float getMana();
+    float getExp();
+    float getHp();
+    float getmaxMana();
+    float getmaxExp();
+    float getmaxHp();
+
 protected:
     Hero(float hp, float dmg, float armor, float mana);
 private:
     float mana;
     float exp;
     float lvl;
+    float maxMana;
+    float maxExp;
+    float maxHp;
     sf::Vector2f position;
 };
 class Knight : public Hero{

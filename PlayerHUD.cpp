@@ -52,15 +52,10 @@ PlayerHUD::PlayerHUD(int windowWidth, int windowHeight, int scale): levelText(fo
 
 void PlayerHUD::update(const sf::RenderWindow& window, Hero& player)
 {
-    //Work in Progress
-/*    float hpPercent = player->getCurrent_Hp() / player->getMax_Hp();
-   hpBarForeground.setSize(sf::Vector2f(windowSize.x*((maxHpWidth * hpPercent)/1920), windowSize.y*(40.f/1080)));
-
-
-float expPercent = player->getCurrent_Exp() / player->getMax_Exp();
-    expBarForeground.setSize(sf::Vector2f(windowSize.x*((maxExpWidth * expPercent)/1920), windowSize.y*(20.f/1080)));
-
-   levelText.setString("Poziom: " + std::to_string(player->getLevel()));*/
+    hpBarForeground.setSize(sf::Vector2f(300.0f*(player.getHp()/player.getmaxHp()), 25.0f));
+    expBarForeground.setSize(sf::Vector2f(250.0f*(player.getExp()/player.getmaxExp()), 10.0f));
+    manaBarForeground.setSize(sf::Vector2f(250.0f*(player.getMana()/player.getmaxMana()), 10.0f));
+  // levelText.setString("Poziom: " + std::to_string(player->getLevel()));*/
 }
 
 void PlayerHUD::draw(sf::RenderWindow& window)
