@@ -34,6 +34,7 @@ void Game::processEvents() {
 }
 
 void Game::update(sf::Time deltaTime) {
+    mainMenu.updateHover(mWindow);
     // update wszystkich obiekt�w + logika gry
 }
 
