@@ -27,7 +27,7 @@ void Game::processEvents() {
             if (event->is<sf::Event::Closed>())
                 mWindow.close();
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Escape))
-                if(mainMenu.checkIfOpen())
+                if(mainMenu.checkIfMainMenuOpen())
                     mWindow.close();
             //tutaj dodawac kolejne eventy
         }
@@ -39,10 +39,16 @@ void Game::update(sf::Time deltaTime) {
 }
 
 void Game::render() {
-    if(mainMenu.checkIfOpen())
+    if(mainMenu.checkIfMainMenuOpen())
     {
         mWindow.clear();
         mainMenu.draw(mWindow);
+        mWindow.display();
+    }
+    else if(mainMenu.checkIfCharacterChooseScreenOpen())
+    {
+        mWindow.clear();
+        mainMenu.drawCharacterChooseScreen(mWindow);
         mWindow.display();
     }
 }

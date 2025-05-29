@@ -3,11 +3,13 @@
 MainMenu::MainMenu(int windowWidth, int windowHeight, int scale) : start(font, "Start Game", 30), gameName(font, "Dungeon Adventures", 60)
 {
     isOpen = true;
+    isCharacterSelectionOpen = false;
     WindowScale = scale/60;
     if (!font.openFromFile("ProjektPPO\\fonts\\font1.ttf"))
     {
         cerr << "Nie udalo sie wczytac czcionki!\n";
     }
+    //projektowanie Main menu
     start.setFillColor(sf::Color::White);
     centerOrigin(start);
     scaleObject(start);
@@ -19,21 +21,47 @@ MainMenu::MainMenu(int windowWidth, int windowHeight, int scale) : start(font, "
     gameName.setPosition({static_cast<float>(windowWidth) / 2.f, static_cast<float>(windowHeight) / 6.f});
 
     startButton.setSize(sf::Vector2f(160.f, 50.f));
-    //startButton.setFillColor(sf::Color::Blue);
     centerOrigin(startButton);
     scaleObject(startButton);
     startButton.setPosition({static_cast<float>(windowWidth) / 2.f, static_cast<float>(windowHeight) / 2.f});
+    //Projektowanie Character Selection
+    chooseKnight.setFillColor(sf::Color::Red);
+    chooseKnight.setRadius(30.f);
+    centerOrigin(chooseKnight);
+    scaleObject(chooseKnight);
+    chooseKnight.setPosition({static_cast<float>(windowWidth) / 2.f, static_cast<float>(windowHeight) / 2.f});
+
+    chooseWizard.setFillColor(sf::Color::Blue);
+    chooseWizard.setRadius(30.f);
+    centerOrigin(chooseWizard);
+    scaleObject(chooseWizard);
+    chooseWizard.setPosition({static_cast<float>(windowWidth) / 4.f, static_cast<float>(windowHeight) / 2.f});
+
+    chooseRogue.setFillColor(sf::Color::Green);
+    chooseRogue.setRadius(30.f);
+    centerOrigin(chooseRogue);
+    scaleObject(chooseRogue);
+    chooseRogue.setPosition({static_cast<float>(windowWidth)*3.f/4.f, static_cast<float>(windowHeight) / 2.f});
 }
 void MainMenu::changeMenu(){
     isOpen = !isOpen;
+    isCharacterSelectionOpen = !isCharacterSelectionOpen;
 }
 void MainMenu::draw(sf::RenderWindow& window){
     window.draw(startButton);
     window.draw(start);
     window.draw(gameName);
 }
-bool MainMenu::checkIfOpen(){
+void MainMenu::drawCharacterChooseScreen(sf::RenderWindow& window){
+    window.draw(chooseKnight);
+    window.draw(chooseWizard);
+    window.draw(chooseRogue);
+}
+bool MainMenu::checkIfMainMenuOpen(){
     return isOpen;
+}
+bool MainMenu::checkIfCharacterChooseScreenOpen(){
+    return isCharacterSelectionOpen;
 }
 template<typename T>
 void MainMenu::centerOrigin(T& drawable){
@@ -51,5 +79,10 @@ void MainMenu::updateHover(const sf::RenderWindow& window)
     isHovered = startButton.getGlobalBounds().contains(mouse);
 
     startButton.setFillColor(isHovered ? sf::Color::Red : sf::Color::Blue);
+    if(isOpen)
+        if(isHovered)
+            if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)){
+                changeMenu();
+            }
 }
 
