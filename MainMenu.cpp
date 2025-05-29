@@ -85,4 +85,16 @@ void MainMenu::updateHover(const sf::RenderWindow& window)
                 changeMenu();
             }
 }
+void MainMenu::chooseCharacter(const sf::RenderWindow& window)
+{
+    auto mouse = sf::Vector2f(sf::Mouse::getPosition(window));
+    isHovered = chooseKnight.getGlobalBounds().contains(mouse);
+
+    chooseKnight.setFillColor(isHovered ? sf::Color::White : sf::Color::Red );
+    if(isCharacterSelectionOpen)
+        if(isHovered)
+            if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)){
+                cout<<"Wybrano Rycerza!"<<endl;
+            }
+}
 

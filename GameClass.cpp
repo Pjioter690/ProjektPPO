@@ -26,29 +26,35 @@ void Game::processEvents() {
         {
             if (event->is<sf::Event::Closed>())
                 mWindow.close();
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Escape))
-                if(mainMenu.checkIfMainMenuOpen())
-                    mWindow.close();
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Escape)){
+                if(mainMenu.checkIfMainMenuOpen()){
+                    cout<<"Zamykanie aplikacji: "<<mainMenu.checkIfMainMenuOpen()<<endl;
+                    //mWindow.close();
+                }
+
+                else if(mainMenu.checkIfCharacterChooseScreenOpen())
+                    mainMenu.changeMenu();
+            }
+
             //tutaj dodawac kolejne eventy
         }
 }
 
 void Game::update(sf::Time deltaTime) {
     mainMenu.updateHover(mWindow);
+    mainMenu.chooseCharacter(mWindow);
     // update wszystkich obiekt�w + logika gry
 }
 
 void Game::render() {
+    mWindow.clear();
     if(mainMenu.checkIfMainMenuOpen())
     {
-        mWindow.clear();
         mainMenu.draw(mWindow);
-        mWindow.display();
     }
     else if(mainMenu.checkIfCharacterChooseScreenOpen())
     {
-        mWindow.clear();
         mainMenu.drawCharacterChooseScreen(mWindow);
-        mWindow.display();
     }
+    mWindow.display();
 }
