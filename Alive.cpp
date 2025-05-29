@@ -26,7 +26,17 @@ void Alive::animate()
 //----Hero----
 
 Hero::Hero(float hp, float dmg, float armor, float mana)
-    : Alive(hp, dmg, armor,5.f),mana(mana),exp(0),lvl(1){}
+    : Alive(hp, dmg, armor,5.f),mana(mana),exp(0),lvl(1), maxMana(mana), maxExp(100/*przykladowa wartosc do ustalenia*/), maxHp(hp) {}
+
+
+//Metody do uzyskania danych
+float Hero::getMana() {return mana;}
+float Hero::getExp() {return exp;}
+float Hero::getHp() {return hp;}
+float Hero::getmaxMana() {return maxMana;}
+float Hero::getmaxExp() {return maxExp;}
+float Hero::getmaxHp() {return maxHp;}
+
 
 void Hero::control(){
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::W)) {
