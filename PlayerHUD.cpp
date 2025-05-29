@@ -1,7 +1,7 @@
 #include "PlayerHUD.hpp"
 #include <cmath>
 
-PlayerHUD::PlayerHUD(int windowWidth, int windowHeight, int scale): levelText(font, "1", 30.0f)
+PlayerHUD::PlayerHUD(int scale): levelText(font, "1", 30.0f)
 {
     WindowScale = scale/60;
     if (!font.openFromFile("ProjektPPO\\fonts\\font1.ttf"))

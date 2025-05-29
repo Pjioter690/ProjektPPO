@@ -18,6 +18,8 @@ public:
     bool checkIfCharacterChooseScreenOpen();
 
 private:
+    sf::Texture Back1;
+    sf::Sprite chooseCharacterBackground;
     sf::Font font;
     sf::Text start;
     sf::Text gameName;

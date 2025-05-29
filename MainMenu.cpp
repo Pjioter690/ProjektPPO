@@ -1,14 +1,21 @@
 #include "MainMenu.hpp"
 
-MainMenu::MainMenu(int windowWidth, int windowHeight, int scale) : start(font, "Start Game", 30), gameName(font, "Dungeon Adventures", 60)
+MainMenu::MainMenu(int windowWidth, int windowHeight, int scale) : start(font, "Start Game", 30), gameName(font, "Dungeon Adventures", 60), chooseCharacterBackground(Back1)
 {
     isOpen = true;
     isCharacterSelectionOpen = false;
     WindowScale = scale/60;
+    if (!Back1.loadFromFile("ProjektPPO\\textures\\back1.jpg"))
+    {
+        cerr << "Nie udalo sie wczytac tekstury!\n";
+    }
     if (!font.openFromFile("ProjektPPO\\fonts\\font1.ttf"))
     {
         cerr << "Nie udalo sie wczytac czcionki!\n";
     }
+    chooseCharacterBackground.setPosition({0.0f,0.0f});
+    chooseCharacterBackground.setTextureRect({{0, 0}, {600, 400}});
+    chooseCharacterBackground.setScale(sf::Vector2f(1.7, 1.9));
     //projektowanie Main menu
     start.setFillColor(sf::Color::White);
     centerOrigin(start);
@@ -53,6 +60,7 @@ void MainMenu::draw(sf::RenderWindow& window){
     window.draw(gameName);
 }
 void MainMenu::drawCharacterChooseScreen(sf::RenderWindow& window){
+    window.draw(chooseCharacterBackground);
     window.draw(chooseKnight);
     window.draw(chooseWizard);
     window.draw(chooseRogue);

@@ -10,7 +10,7 @@ using namespace std;
 class PlayerHUD
 {
 public:
-    PlayerHUD(int windowWidth, int windowHeight, int scale);
+    PlayerHUD(int scale);
     void update(const sf::RenderWindow& window, Hero& player);
     void draw(sf::RenderWindow& window);
 private:
