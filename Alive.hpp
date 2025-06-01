@@ -13,9 +13,11 @@ public:
     void update();
     void animate();
     sf::Vector2f getPosition() const;
+    virtual void draw(sf::RenderWindow& window);
 protected:
     sf::Texture texture;
     sf::Vector2f position;
+    sf::CircleShape shape;
     float hp;
     float dmg;
     float armor;
@@ -23,7 +25,7 @@ protected:
 };
 class Hero : public Alive{
 public:
-    void control(); //poruszanie siê postaci¹
+    void control(sf::Time deltaTime); //poruszanie siê postaci¹
     void lvlUp(); //zwiêkszanie poziomu postaci
 
     //Metody do uzyskania danych
@@ -43,7 +45,7 @@ private:
     float maxMana;
     float maxExp;
     float maxHp;
-    sf::Vector2f position;
+    //sf::Vector2f position;
 };
 class Knight : public Hero{
 public:

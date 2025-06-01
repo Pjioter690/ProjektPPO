@@ -3,7 +3,11 @@
 //----Alive----
 
 Alive::Alive(float hp, float dmg, float armor, float speed)
-    : hp(hp), dmg(dmg), armor(armor) {}
+    : hp(hp), dmg(dmg), armor(armor), speed(speed), position(0.f, 0.f){
+    shape.setRadius(20.f);
+    shape.setOrigin({20.f, 20.f});
+    shape.setFillColor(sf::Color::White);
+}
 
 sf::Vector2f Alive::getPosition() const
 {
@@ -17,16 +21,21 @@ void Alive::addArmor(float addArmor)
 void Alive::update()
 {
     animate();
+    shape.setPosition(position);
 }
 
 void Alive::animate()
 {
     //Work in Progress
 }
+void Alive::draw(sf::RenderWindow& window)
+{
+    window.draw(shape);
+}
 //----Hero----
 
 Hero::Hero(float hp, float dmg, float armor, float mana)
-    : Alive(hp, dmg, armor,5.f),mana(mana),exp(0),lvl(1), maxMana(mana), maxExp(100/*przykladowa wartosc do ustalenia*/), maxHp(hp) {}
+    : Alive(hp, dmg, armor,150.f),mana(mana),exp(0),lvl(1), maxMana(mana), maxExp(100/*przykladowa wartosc do ustalenia*/), maxHp(hp) {}
 
 
 //Metody do uzyskania danych
@@ -38,28 +47,34 @@ float Hero::getmaxExp() {return maxExp;}
 float Hero::getmaxHp() {return maxHp;}
 
 
-void Hero::control(){
+void Hero::control(sf::Time deltaTime){
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::W)) {
-        position.y -= speed;
+        position.y -= speed*deltaTime.asSeconds();
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::S)) {
-        position.y += speed;
+        position.y += speed*deltaTime.asSeconds();
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::A)) {
-        position.x -= speed;
+        position.x -= speed*deltaTime.asSeconds();
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::D)) {
-        position.x += speed;
+        position.x += speed*deltaTime.asSeconds();
     }
 }
 Knight::Knight()
-    : Hero(200.0f, 20.0f, 5.0f, 50.f) {}
+    : Hero(200.0f, 20.0f, 5.0f, 50.f) {
+    shape.setFillColor(sf::Color::Red);
+}
 
 Wizard::Wizard()
-    : Hero(100.0f, 40.0f, 0.0f, 100.f) {}
+    : Hero(100.0f, 40.0f, 0.0f, 100.f) {
+    shape.setFillColor(sf::Color::Blue);
+}
 
 Rogue::Rogue()
-    : Hero(150.0f, 25.0f, 2.0f, 50.f) {}
+    : Hero(150.0f, 25.0f, 2.0f, 50.f) {
+    shape.setFillColor(sf::Color::Green);
+}
 
 
 //----Enemy----

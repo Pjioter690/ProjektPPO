@@ -96,13 +96,39 @@ void MainMenu::updateHover(const sf::RenderWindow& window)
 void MainMenu::chooseCharacter(const sf::RenderWindow& window)
 {
     auto mouse = sf::Vector2f(sf::Mouse::getPosition(window));
-    isHovered = chooseKnight.getGlobalBounds().contains(mouse);
+if (chooseKnight.getGlobalBounds().contains(mouse)) {
+        chooseKnight.setFillColor(sf::Color::White);
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
+            selectedHero = std::make_unique<Knight>();
+            std::cout << "Wybrano Rycerza!" << std::endl;
+            isCharacterSelectionOpen = false;
+        }
+    } else {
+        chooseKnight.setFillColor(sf::Color::Red);
+    }
 
-    chooseKnight.setFillColor(isHovered ? sf::Color::White : sf::Color::Red );
-    if(isCharacterSelectionOpen)
-        if(isHovered)
-            if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)){
-                cout<<"Wybrano Rycerza!"<<endl;
-            }
+    if (chooseWizard.getGlobalBounds().contains(mouse)) {
+        chooseWizard.setFillColor(sf::Color::White);
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
+            selectedHero = std::make_unique<Wizard>();
+            std::cout << "Wybrano Czarodzieja!" << std::endl;
+            isCharacterSelectionOpen = false;
+        }
+    } else {
+        chooseWizard.setFillColor(sf::Color::Blue);
+    }
+
+    if (chooseRogue.getGlobalBounds().contains(mouse)) {
+        chooseRogue.setFillColor(sf::Color::White);
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
+            selectedHero = std::make_unique<Rogue>();
+            std::cout << "Wybrano £otra!" << std::endl;
+            isCharacterSelectionOpen = false;
+        }
+    } else {
+        chooseRogue.setFillColor(sf::Color::Green);
+    }
 }
+
+Alive* MainMenu::getSelectedHero() { return selectedHero.get(); }
 

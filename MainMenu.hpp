@@ -5,6 +5,7 @@ using namespace std;
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "Alive.hpp"
 
 class MainMenu{
 public:
@@ -16,6 +17,8 @@ public:
     void chooseCharacter(const sf::RenderWindow& window);
     bool checkIfMainMenuOpen();
     bool checkIfCharacterChooseScreenOpen();
+    std::unique_ptr<Alive> selectedHero;
+    Alive* getSelectedHero();
 
 private:
     sf::Texture Back1;

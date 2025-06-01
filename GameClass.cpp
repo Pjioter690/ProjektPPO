@@ -42,7 +42,14 @@ void Game::processEvents() {
 
 void Game::update(sf::Time deltaTime) {
     mainMenu.updateHover(mWindow);
-    mainMenu.chooseCharacter(mWindow);
+
+    if(mainMenu.checkIfCharacterChooseScreenOpen())
+        mainMenu.chooseCharacter(mWindow);
+
+    if (auto* hero = dynamic_cast<Hero*>(mainMenu.getSelectedHero())) {
+        hero->control(deltaTime);    // <--- sterowanie!
+        hero->update();     // <--- aktualizacja animacji
+    }
     // update wszystkich obiekt�w + logika gry
 }
 
@@ -55,6 +62,9 @@ void Game::render() {
     else if(mainMenu.checkIfCharacterChooseScreenOpen())
     {
         mainMenu.drawCharacterChooseScreen(mWindow);
+    }
+    else if (auto* hero = mainMenu.getSelectedHero()) {
+        hero->draw(mWindow);
     }
     mWindow.display();
 }
