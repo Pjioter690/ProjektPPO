@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 
 #include"MainMenu.hpp"
+#include"PlayerHUD.hpp"
 
 class Game {
 public:
@@ -11,6 +12,7 @@ public:
     void run();
 
 private:
+    sf::View view;
     void processEvents();
     void update(sf::Time deltaTime);
     void render();
@@ -22,6 +24,7 @@ private:
 
 
     MainMenu mainMenu;
+    PlayerHUD playerHUD;
 };
 
 #endif

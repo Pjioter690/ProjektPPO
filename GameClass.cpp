@@ -7,7 +7,9 @@ using namespace std;
 Game::Game(): scale(60),
     windowWidth(16*scale),//skala 120 to prawdopodobnie fullscreen
     windowHeight(9*scale),
-    mainMenu(windowWidth, windowHeight, scale){
+    mainMenu(windowWidth, windowHeight, scale),
+    playerHUD(scale){
+    view.setSize(sf::Vector2f{960.0f, 540.0f});
     mWindow.create(sf::VideoMode({static_cast<unsigned int>(windowWidth),static_cast<unsigned int>(windowHeight)}), "Dungeon Adventures",sf::Style::Titlebar | sf::Style::Close);
 }
 
@@ -49,11 +51,13 @@ void Game::update(sf::Time deltaTime) {
     if (auto* hero = dynamic_cast<Hero*>(mainMenu.getSelectedHero())) {
         hero->control(deltaTime);    // <--- sterowanie!
         hero->update();     // <--- aktualizacja animacji
+        playerHUD.update(mWindow, *hero);
     }
     // update wszystkich obiekt�w + logika gry
 }
 
 void Game::render() {
+
     mWindow.clear();
     if(mainMenu.checkIfMainMenuOpen())
     {
@@ -64,7 +68,10 @@ void Game::render() {
         mainMenu.drawCharacterChooseScreen(mWindow);
     }
     else if (auto* hero = mainMenu.getSelectedHero()) {
+        view.setCenter(hero->getPosition());
+        mWindow.setView(view);
         hero->draw(mWindow);
+        playerHUD.draw(mWindow);
     }
     mWindow.display();
 }
