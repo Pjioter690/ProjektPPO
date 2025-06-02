@@ -1,6 +1,6 @@
 #include "MainMenu.hpp"
 
-MainMenu::MainMenu(int windowWidth, int windowHeight, int scale) : start(font, "Start Game", 30), gameName(font, "Dungeon Adventures", 60), chooseCharacterBackground(Back1)
+MainMenu::MainMenu(int windowWidth, int windowHeight, int scale) : start(font, "Start Game", 30), gameName(font, "Dungeon Adventures", 60), chooseCharacterBackground(Back1), menuBackground(MenuBackground)
 {
     isOpen = true;
     isCharacterSelectionOpen = false;
@@ -13,6 +13,14 @@ MainMenu::MainMenu(int windowWidth, int windowHeight, int scale) : start(font, "
     {
         cerr << "Nie udalo sie wczytac czcionki!\n";
     }
+    if (!MenuBackground.loadFromFile("ProjektPPO\\textures\\MainBackground.png"))
+    {
+        cerr << "Nie udalo sie wczytac tekstury!\n";
+    }
+    menuBackground.setPosition({0.0f,0.0f});
+    menuBackground.setTextureRect({{0, 0}, {1920, 1080}});
+    menuBackground.setScale({0.5f, 0.5f});
+
     chooseCharacterBackground.setPosition({0.0f,0.0f});
     chooseCharacterBackground.setTextureRect({{0, 0}, {600, 400}});
     chooseCharacterBackground.setScale(sf::Vector2f(1.7, 1.9));
@@ -20,9 +28,11 @@ MainMenu::MainMenu(int windowWidth, int windowHeight, int scale) : start(font, "
     start.setFillColor(sf::Color::White);
     centerOrigin(start);
     scaleObject(start);
-    start.setPosition({static_cast<float>(windowWidth) / 2.f, static_cast<float>(windowHeight) / 2.f});
+    start.setPosition({static_cast<float>(windowWidth) / 2.f, static_cast<float>(windowHeight) / 1.3f});
 
     gameName.setFillColor(sf::Color::White);
+    gameName.setOutlineThickness(3);
+    gameName.setOutlineColor(sf::Color::Red);
     centerOrigin(gameName);
     scaleObject(gameName);
     gameName.setPosition({static_cast<float>(windowWidth) / 2.f, static_cast<float>(windowHeight) / 6.f});
@@ -30,7 +40,7 @@ MainMenu::MainMenu(int windowWidth, int windowHeight, int scale) : start(font, "
     startButton.setSize(sf::Vector2f(160.f, 50.f));
     centerOrigin(startButton);
     scaleObject(startButton);
-    startButton.setPosition({static_cast<float>(windowWidth) / 2.f, static_cast<float>(windowHeight) / 2.f});
+    startButton.setPosition({static_cast<float>(windowWidth) / 2.f, static_cast<float>(windowHeight) / 1.3f});
     //Projektowanie Character Selection
     chooseKnight.setFillColor(sf::Color::Red);
     chooseKnight.setRadius(30.f);
@@ -55,6 +65,7 @@ void MainMenu::changeMenu(){
     isCharacterSelectionOpen = !isCharacterSelectionOpen;
 }
 void MainMenu::draw(sf::RenderWindow& window){
+    window.draw(menuBackground);
     window.draw(startButton);
     window.draw(start);
     window.draw(gameName);

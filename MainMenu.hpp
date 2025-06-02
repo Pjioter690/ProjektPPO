@@ -21,6 +21,8 @@ public:
     Alive* getSelectedHero();
 
 private:
+    sf::Texture MenuBackground;
+    sf::Sprite menuBackground;
     sf::Texture Back1;
     sf::Sprite chooseCharacterBackground;
     sf::Font font;
