@@ -1,11 +1,12 @@
 #include "MainMenu.hpp"
 
-MainMenu::MainMenu(int windowWidth, int windowHeight, int scale) : start(font, "Start Game", 30), gameName(font, "Dungeon Adventures", 60), chooseCharacterBackground(Back1), menuBackground(MenuBackground)
+MainMenu::MainMenu(int windowWidth, int windowHeight, int scale) : start(font, "Start Game", 30), gameName(font, "Dungeon Adventures", 60),
+chooseCharacterBackground(Back1), menuBackground(MenuBackground)
 {
     isOpen = true;
     isCharacterSelectionOpen = false;
     WindowScale = scale/60;
-    if (!Back1.loadFromFile("ProjektPPO\\textures\\back1.jpg"))
+    if (!Back1.loadFromFile("ProjektPPO\\textures\\back1.png"))
     {
         cerr << "Nie udalo sie wczytac tekstury!\n";
     }
@@ -22,8 +23,8 @@ MainMenu::MainMenu(int windowWidth, int windowHeight, int scale) : start(font, "
     menuBackground.setScale({0.5f, 0.5f});
 
     chooseCharacterBackground.setPosition({0.0f,0.0f});
-    chooseCharacterBackground.setTextureRect({{0, 0}, {600, 400}});
-    chooseCharacterBackground.setScale(sf::Vector2f(1.7, 1.9));
+    chooseCharacterBackground.setTextureRect({{0, 0}, {1920, 1080}});
+    chooseCharacterBackground.setScale({0.5f, 0.5f});
     //projektowanie Main menu
     start.setFillColor(sf::Color::White);
     centerOrigin(start);
