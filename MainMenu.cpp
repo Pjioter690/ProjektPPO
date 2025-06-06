@@ -1,6 +1,6 @@
 #include "MainMenu.hpp"
 
-MainMenu::MainMenu(int windowWidth, int windowHeight, int scale) : start(font, "Start Game", 30), gameName(font, "Dungeon Adventures", 60),
+MainMenu::MainMenu(int windowWidth, int windowHeight, int scale) :
 chooseCharacterBackground(Back1), menuBackground(MenuBackground)
 {
     isOpen = true;
@@ -10,7 +10,7 @@ chooseCharacterBackground(Back1), menuBackground(MenuBackground)
     {
         cerr << "Nie udalo sie wczytac tekstury!\n";
     }
-    if (!font.openFromFile("ProjektPPO\\fonts\\font1.ttf"))
+    if (!font.loadFromFile("ProjektPPO\\fonts\\font1.ttf"))
     {
         cerr << "Nie udalo sie wczytac czcionki!\n";
     }
@@ -26,11 +26,17 @@ chooseCharacterBackground(Back1), menuBackground(MenuBackground)
     chooseCharacterBackground.setTextureRect({{0, 0}, {1920, 1080}});
     chooseCharacterBackground.setScale({0.5f, 0.5f});
     //projektowanie Main menu
+    start.setFont(font);
+    start.setString("Start Game");
+    start.setCharacterSize(30);
     start.setFillColor(sf::Color::White);
     centerOrigin(start);
     scaleObject(start);
     start.setPosition({static_cast<float>(windowWidth) / 2.f, static_cast<float>(windowHeight) / 1.3f});
 
+    gameName.setFont(font);
+    gameName.setString("Dungeon Adventures");
+    gameName.setCharacterSize(60);
     gameName.setFillColor(sf::Color::White);
     gameName.setOutlineThickness(3);
     gameName.setOutlineColor(sf::Color::Red);
@@ -86,8 +92,8 @@ bool MainMenu::checkIfCharacterChooseScreenOpen(){
 template<typename T>
 void MainMenu::centerOrigin(T& drawable){
     sf::FloatRect bounds = drawable.getLocalBounds();
-    drawable.setOrigin({bounds.position.x + bounds.size.x / 2.f,
-                       bounds.position.y + bounds.size.y / 2.f});
+    drawable.setOrigin({bounds.getPosition().x + bounds.left / 2.f,
+                       bounds.getPosition().y + bounds.height / 2.f});
 }
 template<typename T>
 void MainMenu::scaleObject(T& drawable){
@@ -134,7 +140,7 @@ if (chooseKnight.getGlobalBounds().contains(mouse)) {
         chooseRogue.setFillColor(sf::Color::White);
         if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
             selectedHero = std::make_unique<Rogue>();
-            std::cout << "Wybrano £otra!" << std::endl;
+            std::cout << "Wybrano Â£otra!" << std::endl;
             isCharacterSelectionOpen = false;
         }
     } else {

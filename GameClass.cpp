@@ -25,22 +25,22 @@ void Game::run() {
 }
 
 void Game::processEvents() {
-    while (const std::optional event = mWindow.pollEvent())
-        {
-            if (event->is<sf::Event::Closed>())
-                mWindow.close();
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Escape)){
-                if(mainMenu.checkIfMainMenuOpen()){
-                    cout<<"Zamykanie aplikacji: "<<mainMenu.checkIfMainMenuOpen()<<endl;
-                    //mWindow.close();
-                }
+    sf::Event event;
+    while (mWindow.pollEvent(event)) {
+        if (event.type == sf::Event::Closed)
+            mWindow.close();
 
-                else if(mainMenu.checkIfCharacterChooseScreenOpen())
-                    mainMenu.changeMenu();
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+            if (mainMenu.checkIfMainMenuOpen()) {
+                std::cout << "Zamykanie aplikacji: " << mainMenu.checkIfMainMenuOpen() << std::endl;
+                // mWindow.close();
+            } else if (mainMenu.checkIfCharacterChooseScreenOpen()) {
+                mainMenu.changeMenu();
             }
-
-            //tutaj dodawac kolejne eventy
         }
+
+        // tutaj dodawac kolejne eventy
+    }
 }
 
 void Game::update(sf::Time deltaTime) {

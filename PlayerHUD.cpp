@@ -1,10 +1,13 @@
 #include "PlayerHUD.hpp"
 #include <cmath>
 
-PlayerHUD::PlayerHUD(int scale): levelText(font, "1", 30.0f)
+PlayerHUD::PlayerHUD(int scale)
 {
+    levelText.setFont(font);
+    levelText.setString('1');
+    levelText.setCharacterSize(30.f);
     WindowScale = scale/60;
-    if (!font.openFromFile("ProjektPPO\\fonts\\font1.ttf"))
+    if (!font.loadFromFile("ProjektPPO\\fonts\\font1.ttf"))
     {
         cerr << "Nie udalo sie wczytac czcionki!\n";
     }

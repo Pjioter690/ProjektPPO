@@ -6,6 +6,7 @@ using namespace std;
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "Alive.hpp"
+#include <memory>
 
 class MainMenu{
 public:
