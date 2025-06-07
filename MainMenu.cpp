@@ -43,7 +43,6 @@ chooseCharacterBackground(Back1), menuBackground(MenuBackground)
     centerOrigin(gameName);
     scaleObject(gameName);
     gameName.setPosition({static_cast<float>(windowWidth) / 2.f, static_cast<float>(windowHeight) / 6.f});
-    cout<< gameName.getOrigin().x <<" "<<gameName.getOrigin().y<<endl;
 
     startButton.setSize(sf::Vector2f(160.f, 50.f));
     centerOrigin(startButton);

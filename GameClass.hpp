@@ -5,6 +5,7 @@
 
 #include"MainMenu.hpp"
 #include"PlayerHUD.hpp"
+#include"Map.hpp"
 
 class Game {
 public:
@@ -25,6 +26,7 @@ private:
 
     MainMenu mainMenu;
     PlayerHUD playerHUD;
+    Mapa map1;
 };
 
 #endif
