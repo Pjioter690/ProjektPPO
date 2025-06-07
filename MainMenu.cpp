@@ -43,6 +43,7 @@ chooseCharacterBackground(Back1), menuBackground(MenuBackground)
     centerOrigin(gameName);
     scaleObject(gameName);
     gameName.setPosition({static_cast<float>(windowWidth) / 2.f, static_cast<float>(windowHeight) / 6.f});
+    cout<< gameName.getOrigin().x <<" "<<gameName.getOrigin().y<<endl;
 
     startButton.setSize(sf::Vector2f(160.f, 50.f));
     centerOrigin(startButton);
@@ -92,8 +93,8 @@ bool MainMenu::checkIfCharacterChooseScreenOpen(){
 template<typename T>
 void MainMenu::centerOrigin(T& drawable){
     sf::FloatRect bounds = drawable.getLocalBounds();
-    drawable.setOrigin({bounds.getPosition().x + bounds.left / 2.f,
-                       bounds.getPosition().y + bounds.height / 2.f});
+    drawable.setOrigin({bounds.left + bounds.width / 2.f,
+                       bounds.top + bounds.height / 2.f});
 }
 template<typename T>
 void MainMenu::scaleObject(T& drawable){
