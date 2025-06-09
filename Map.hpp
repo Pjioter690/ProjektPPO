@@ -12,11 +12,10 @@ public:
     Mapa();
     sf::FloatRect getWallBounds();
     void draw(sf::RenderWindow& window);
+    std::vector<sf::RectangleShape> getTiles();
 private:
     sf::RectangleShape tile;
     std::vector<sf::RectangleShape> tiles;
-    sf::RectangleShape Wall;
-    std::vector<sf::RectangleShape> Walls;
 };
 
 

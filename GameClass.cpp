@@ -49,7 +49,7 @@ void Game::update(sf::Time deltaTime) {
         mainMenu.chooseCharacter(mWindow);
 
     if (auto* hero = dynamic_cast<Hero*>(mainMenu.getSelectedHero())) {
-        hero->control(deltaTime);    // <--- sterowanie!
+        hero->control(deltaTime,map1);    // <--- sterowanie!
         hero->update();     // <--- aktualizacja animacji
         playerHUD.update(mWindow, *hero);
     }

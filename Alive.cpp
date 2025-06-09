@@ -3,7 +3,7 @@
 //----Alive----
 
 Alive::Alive(float hp, float dmg, float armor, float speed)
-    : hp(hp), dmg(dmg), armor(armor), speed(speed), position(0.f, 0.f){
+    : hp(hp), dmg(dmg), armor(armor), speed(speed), position(250.f, 250.f){
     shape.setRadius(20.f);
     shape.setOrigin({20.f, 20.f});
     shape.setFillColor(sf::Color::White);
@@ -47,7 +47,8 @@ float Hero::getmaxExp() {return maxExp;}
 float Hero::getmaxHp() {return maxHp;}
 
 
-void Hero::control(sf::Time deltaTime){
+void Hero::control(sf::Time deltaTime, Mapa map1){
+    std::vector<Mapa> kopiaMapy = map1.getTiles();
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::W)) {
         position.y -= speed*deltaTime.asSeconds();
     }

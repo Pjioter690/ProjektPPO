@@ -2,6 +2,8 @@
 #define ALIVE_HPP
 
 #include <SFML/Graphics.hpp>
+#include"Map.hpp"
+#include<vector>
 
 
 class Alive{
@@ -25,7 +27,7 @@ protected:
 };
 class Hero : public Alive{
 public:
-    void control(sf::Time deltaTime); //poruszanie siê postaci¹
+    void control(sf::Time deltaTime,Mapa map1); //poruszanie siê postaci¹
     void lvlUp(); //zwiêkszanie poziomu postaci
 
     //Metody do uzyskania danych

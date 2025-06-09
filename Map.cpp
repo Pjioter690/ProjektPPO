@@ -23,11 +23,14 @@ Mapa::Mapa(){
 }
 
 sf::FloatRect Mapa::getWallBounds(){
-    return Wall.getGlobalBounds();
+    return tile.getGlobalBounds();
 }
 void Mapa::draw(sf::RenderWindow& window){
     for(auto tile : tiles){
         window.draw(tile);
         //cout<<"Drawing tile"<<endl;
     }
+}
+std::vector<sf::RectangleShape> Mapa::getTiles(){
+    return tiles;
 }
