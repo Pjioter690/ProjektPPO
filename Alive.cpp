@@ -3,7 +3,7 @@
 //----Alive----
 
 Alive::Alive(float hp, float dmg, float armor, float speed)
-    : hp(hp), dmg(dmg), armor(armor), speed(speed), position(250.f, 250.f){
+    : hp(hp), dmg(dmg), armor(armor), speed(speed), position(350.f, 350.f){
     shape.setRadius(20.f);
     shape.setOrigin({20.f, 20.f});
     shape.setFillColor(sf::Color::White);
@@ -21,7 +21,6 @@ void Alive::addArmor(float addArmor)
 void Alive::update()
 {
     animate();
-    shape.setPosition(position);
 }
 
 void Alive::animate()
@@ -48,18 +47,22 @@ float Hero::getmaxHp() {return maxHp;}
 
 
 void Hero::control(sf::Time deltaTime, Mapa map1){
-    std::vector<Mapa> kopiaMapy = map1.getTiles();
+    sf::Vector2f nextPosition = position;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::W)) {
-        position.y -= speed*deltaTime.asSeconds();
+        nextPosition.y -= speed*deltaTime.asSeconds();
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::S)) {
-        position.y += speed*deltaTime.asSeconds();
+        nextPosition.y += speed*deltaTime.asSeconds();
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::A)) {
-        position.x -= speed*deltaTime.asSeconds();
+        nextPosition.x -= speed*deltaTime.asSeconds();
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::D)) {
-        position.x += speed*deltaTime.asSeconds();
+        nextPosition.x += speed*deltaTime.asSeconds();
+    }
+    if(!map1.isWall(nextPosition,20.f)){
+            position = nextPosition;
+            shape.setPosition(position);
     }
 }
 Knight::Knight()

@@ -10,12 +10,14 @@ using namespace std;
 class Mapa{
 public:
     Mapa();
-    sf::FloatRect getWallBounds();
+    //sf::FloatRect getWallBounds(sf::RectangleShape tile);
     void draw(sf::RenderWindow& window);
-    std::vector<sf::RectangleShape> getTiles();
+    bool isWall(sf::Vector2f position, float radius);
 private:
     sf::RectangleShape tile;
     std::vector<sf::RectangleShape> tiles;
+    sf::RectangleShape wall;
+    std::vector<sf::RectangleShape> walls;
 };
 
 
