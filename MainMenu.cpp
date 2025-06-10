@@ -130,6 +130,7 @@ if (chooseKnight.getGlobalBounds().contains(mouse)) {
         chooseWizard.setFillColor(sf::Color::White);
         if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
             selectedHero = std::make_unique<Wizard>();
+            selectedWeapon = std::make_unique<Wand>();
             std::cout << "Wybrano Czarodzieja!" << std::endl;
             isCharacterSelectionOpen = false;
         }
@@ -141,6 +142,7 @@ if (chooseKnight.getGlobalBounds().contains(mouse)) {
         chooseRogue.setFillColor(sf::Color::White);
         if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
             selectedHero = std::make_unique<Rogue>();
+            selectedWeapon = std::make_unique<Knife>();
             std::cout << "Wybrano £otra!" << std::endl;
             isCharacterSelectionOpen = false;
         }
