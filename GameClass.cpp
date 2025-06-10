@@ -8,11 +8,12 @@ Game::Game(): scale(60),
     windowWidth(16*scale),//skala 120 to prawdopodobnie fullscreen
     windowHeight(9*scale),
     mainMenu(windowWidth, windowHeight, scale),
-    playerHUD(scale){
-    view.setSize(sf::Vector2f{320.0f, 180.0f});
-    mWindow.create(sf::VideoMode({static_cast<unsigned int>(windowWidth),static_cast<unsigned int>(windowHeight)}), "Dungeon Adventures",sf::Style::Titlebar | sf::Style::Close);
-    enemies.emplace_back(std::make_unique<Zombie>(posX, posY));
-}
+    playerHUD(scale)
+    {
+        view.setSize(sf::Vector2f{320.0f, 180.0f});
+        mWindow.create(sf::VideoMode({static_cast<unsigned int>(windowWidth),static_cast<unsigned int>(windowHeight)}), "Dungeon Adventures",sf::Style::Titlebar | sf::Style::Close);
+        enemies.emplace_back(std::make_unique<Zombie>(posX, posY));
+    }
 
 void Game::run() {
     sf::Clock clock;
@@ -50,13 +51,20 @@ void Game::update(sf::Time deltaTime) {
         mainMenu.chooseCharacter(mWindow);
 
     if (auto* hero = dynamic_cast<Hero*>(mainMenu.getSelectedHero())) {
-        auto* weapon = dynamic_cast<Weapon*>(mainMenu.getSelectedWeapon());
-        hero->control(deltaTime,map1,dynamic_cast<Weapon*>(mainMenu.getSelectedWeapon()));    // <--- sterowanie!
+        hero->control(deltaTime,map1);    // <--- sterowanie!
         hero->update();     // <--- aktualizacja animacji
+        if(spawn)
+        {
+
+                enemies.emplace_back(std::make_unique<Zombie>(30.f, 40.f));
+
+
+                spawn=false;
+        }
         playerHUD.update(mWindow, *hero);
         for(auto& enemy : enemies)
         {
-            enemy->update(deltaTime, *hero);
+            enemy->update(deltaTime, *hero, enemies);
             enemy->animate(deltaTime);
         }
     }
@@ -75,12 +83,10 @@ void Game::render() {
         mainMenu.drawCharacterChooseScreen(mWindow);
     }
     else if (auto* hero = mainMenu.getSelectedHero()) {
-        auto* weapon = dynamic_cast<Weapon*>(mainMenu.getSelectedWeapon());
         view.setCenter(hero->getPosition());
         mWindow.setView(view);
         map1.draw(mWindow);
         hero->draw(mWindow);
-        weapon->draw(mWindow);
         for (auto& enemy : enemies)
         {
             enemy->draw(mWindow);
