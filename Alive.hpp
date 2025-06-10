@@ -74,6 +74,8 @@ public:
 class Enemy : public Alive
 {
 public:
+    virtual ~Enemy();
+    virtual void dealDmg(float enemyDmg);
     void update(const sf::Time& deltaTime, Hero& hero, const vector<std::unique_ptr<Enemy>>& enemies);
     virtual void draw(sf::RenderWindow& window);
     virtual void animate(const sf::Time& deltaTime);
@@ -86,7 +88,7 @@ protected:
     bool isDying = false;
     bool isAttacking = false;
 
-
+    void onDeath();
     enum Direction { Up, Down, Left, Right } directionEnum = Down;
     int attackAnimationFrame, deathAnimationFrame, animationFrame;
     float animationTimer;
@@ -96,7 +98,7 @@ protected:
     float stunDuration = 1.0f;
     float stunTimer = 0.0f;
     bool isStunned = false;
-
+    static int killedEnemies;
     sf::Vector2f newPosition;
 };
 

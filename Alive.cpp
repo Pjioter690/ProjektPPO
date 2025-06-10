@@ -102,6 +102,31 @@ Rogue::Rogue()
 Enemy::Enemy(float x, float y, float hp, float dmg, float armor, float speed): Alive(x, y, hp, dmg, armor,speed), frameHeight(32.f),
 frameWidth(32.f) {}
 
+int Enemy::killedEnemies = 0;
+
+Enemy::~Enemy() = default;
+
+void Enemy::dealDmg(float enemyDmg)
+{
+    hp -=(enemyDmg*(100-armor));
+    //cout << "Przeciwnik otrzymal obrazenia, zostalo mu " << hp << " punktow zycia.\n";
+    if (hp <= 0 && !isDying) {
+        onDeath();
+    }
+    if (!isStunned) {
+        isStunned = true;
+        stunTimer = 0.0f;
+    }
+}
+
+void Enemy::onDeath() {
+    isDying = true;
+    deathAnimationFrame = 0;
+    animationTimer = 0.0f;
+    killedEnemies++;
+    cout << "Liczba zabitych przeciwników: " << killedEnemies << endl;
+}
+
 void Enemy::update(const sf::Time& deltaTime, Hero& hero, const vector<std::unique_ptr<Enemy>>& enemies)
 {
     if (!isAlive || isDying)//brak update'u jesli obiekt jest martwy lub umierajacy
