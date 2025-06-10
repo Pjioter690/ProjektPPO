@@ -17,7 +17,7 @@ sf::Vector2f Alive::getPosition() const
 void Alive::dealDmg(float enemyDmg)
 {
     hp -=(enemyDmg*(100-armor));
-    cout<<hp<<endl;
+    cout<<enemyDmg<<endl;
 }
 
 void Alive::addArmor(float addArmor)
@@ -82,17 +82,17 @@ void Hero::control(sf::Time deltaTime, Mapa map1,Weapon* weapon){
     }
 }
 Knight::Knight()
-    : Hero(350.0f, 350.0f, 200.0f, 20.0f, 5.0f, 50.f) {
+    : Hero(350.0f, 350.0f, 200.0f, 4.f, 20.0f, 40.f) {
     shape.setFillColor(sf::Color::Red);
 }
 
 Wizard::Wizard()
-    : Hero(350.0f, 350.0f, 100.0f, 40.0f, 0.0f, 100.f) {
+    : Hero(350.0f, 350.0f, 100.0f, 3.f, 0.0f, 70.f) {
     shape.setFillColor(sf::Color::Blue);
 }
 
 Rogue::Rogue()
-    : Hero(350.0f, 350.0f, 150.0f, 25.0f, 2.0f, 50.f) {
+    : Hero(350.0f, 350.0f, 150.0f, 4.f, 15.0f, 100.f) {
     shape.setFillColor(sf::Color::Green);
 }
 
