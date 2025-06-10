@@ -48,28 +48,28 @@ float Hero::getmaxExp() {return maxExp;}
 float Hero::getmaxHp() {return maxHp;}
 
 
-void Hero::control(sf::Time deltaTime, Mapa map1){
+void Hero::control(sf::Time deltaTime, Mapa map1,Weapon* weapon){
     sf::Vector2f nextPosition = position;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::W)) {
         nextPosition.y -= speed*deltaTime.asSeconds();
-        rotation = 1;
+        rotation = 0;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::S)) {
         nextPosition.y += speed*deltaTime.asSeconds();
-        rotation = 3;
+        rotation = 2;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::A)) {
         nextPosition.x -= speed*deltaTime.asSeconds();
-        rotation = 2;
+        rotation = 3;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::D)) {
         nextPosition.x += speed*deltaTime.asSeconds();
-        rotation = 0;
+        rotation = 1;
     }
     if(!map1.isWall(nextPosition,20.f)){
             position = nextPosition;
             shape.setPosition(position);
-            //herosWeapon.followPlayer(position, rotation);
+            weapon->followPlayer(position, rotation);
     }
 }
 Knight::Knight()

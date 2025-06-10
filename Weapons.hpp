@@ -3,24 +3,28 @@
 
 #include <SFML/Graphics.hpp>
 #include<vector>
-#include"Alive.hpp"
+
+class Alive;
 
 class Weapon{
 public:
     Weapon();
-    //void attack(float dmg,std::vector<Alive> enemies);
+    void attack(float dmg,std::vector<Alive> enemies);
     void followPlayer(sf::Vector2f position, int rotation);
     void draw(sf::RenderWindow& window);
-private:
+protected:
     sf::RectangleShape weaponHitbox;
 };
 class Sword : public Weapon{
+public:
     Sword();
 };
 class Wand : public Weapon{
+public:
     Wand();
 };
 class Knife : public Weapon{
+public:
     Knife();
 };
 

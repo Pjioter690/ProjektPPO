@@ -18,3 +18,7 @@ void Weapon::followPlayer(sf::Vector2f position,int rotation){
 void Weapon::draw(sf::RenderWindow& window){
     window.draw(weaponHitbox);
 }
+Sword::Sword(){
+    weaponHitbox.setSize({20.f,50.f});
+    weaponHitbox.setOrigin(10.f,50.f);
+}

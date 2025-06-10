@@ -118,6 +118,7 @@ if (chooseKnight.getGlobalBounds().contains(mouse)) {
         chooseKnight.setFillColor(sf::Color::White);
         if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
             selectedHero = std::make_unique<Knight>();
+            selectedWeapon = std::make_unique<Sword>();
             std::cout << "Wybrano Rycerza!" << std::endl;
             isCharacterSelectionOpen = false;
         }
@@ -149,4 +150,6 @@ if (chooseKnight.getGlobalBounds().contains(mouse)) {
 }
 
 Alive* MainMenu::getSelectedHero() { return selectedHero.get(); }
+
+Weapon* MainMenu::getSelectedWeapon() { return selectedWeapon.get(); }
 

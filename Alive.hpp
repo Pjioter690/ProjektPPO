@@ -3,9 +3,9 @@
 
 #include <SFML/Graphics.hpp>
 #include"Map.hpp"
+#include"Weapons.hpp"
 #include<vector>
 
-class Weapon;
 
 class Alive{
 public:
@@ -29,7 +29,7 @@ protected:
 };
 class Hero : public Alive{
 public:
-    void control(sf::Time deltaTime,Mapa map1); //poruszanie siê postaci¹
+    void control(sf::Time deltaTime,Mapa map1,Weapon*); //poruszanie siê postaci¹
     void lvlUp(); //zwiêkszanie poziomu postaci
 
     //Metody do uzyskania danych
@@ -42,7 +42,6 @@ public:
 
 protected:
     Hero(float hp, float dmg, float armor, float mana);
-    Weapon* herosWeapon;
 private:
     float mana;
     float exp;
