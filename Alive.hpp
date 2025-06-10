@@ -17,6 +17,7 @@ public:
     sf::Vector2f getPosition() const;
     virtual void draw(sf::RenderWindow& window);
 protected:
+    sf::Sprite sprite;
     sf::Texture texture;
     sf::Vector2f position;
     sf::CircleShape shape;
@@ -65,30 +66,37 @@ public:
 class Enemy : public Alive
 {
 public:
-    void trackPlayer(const sf::Vector2f& playerPos);            //sledzenie najblizszego gracza
+    void update(const sf::Time& deltaTime, Hero& hero);
+    virtual void draw(sf::RenderWindow& window);
+    virtual void animate(const sf::Time& deltaTime);
 protected:
+    int frameWidth, frameHeight, deathAnimationFrame, animationFrame;
+    int attackAnimationFrame = 0;
+    float animationTimer;
+    bool isAlive, isDying, isStunned;
+    bool isAttacking = false;
     Enemy(float hp, float dmg, float armor, float speed);
+    enum Direction { Up, Down, Left, Right } directionEnum;
 private:
     sf::Vector2f position;
 };
 
 class Zombie : public Enemy
 {
+    public:
     Zombie();
 };
 
 class Goblin : public Enemy
 {
+    public:
     Goblin();
 };
 
-class Skeleton : public Enemy
-{
-    Skeleton();
-};
 
-class Boss : public Enemy
+class Ogre : public Enemy
 {
-    Boss();
+    public:
+    Ogre();
 };
 #endif

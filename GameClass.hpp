@@ -11,6 +11,7 @@ class Game {
 public:
     Game();
     void run();
+    Zombie zomb;
 
 private:
     sf::View view;

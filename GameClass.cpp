@@ -52,6 +52,8 @@ void Game::update(sf::Time deltaTime) {
         hero->control(deltaTime,map1);    // <--- sterowanie!
         hero->update();     // <--- aktualizacja animacji
         playerHUD.update(mWindow, *hero);
+        zomb.update(deltaTime, *hero);
+        zomb.animate(deltaTime);
     }
     // update wszystkich obiekt�w + logika gry
 }
@@ -72,6 +74,7 @@ void Game::render() {
         mWindow.setView(view);
         map1.draw(mWindow);
         hero->draw(mWindow);
+        zomb.draw(mWindow);
         playerHUD.draw(mWindow);
     }
     mWindow.display();

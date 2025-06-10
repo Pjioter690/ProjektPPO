@@ -7,6 +7,7 @@ Alive::Alive(float hp, float dmg, float armor, float speed)
     shape.setRadius(20.f);
     shape.setOrigin({20.f, 20.f});
     shape.setFillColor(sf::Color::White);
+    sprite.setTexture(texture);
 }
 
 sf::Vector2f Alive::getPosition() const
@@ -83,31 +84,148 @@ Rogue::Rogue()
 
 //----Enemy----
 
-Enemy::Enemy(float hp, float dmg, float armor, float speed)
-     : Alive(hp, dmg, armor,speed){}
+Enemy::Enemy(float hp, float dmg, float armor, float speed): Alive(hp, dmg, armor,speed),isAlive(true), isDying(false), animationTimer(0.0f), deathAnimationFrame(0),
+animationFrame(1), frameHeight(32), frameWidth(32), position(0,0), directionEnum(Down)
 
-void Enemy::trackPlayer(const sf::Vector2f& playerPos)
 {
-    sf::Vector2f dir = playerPos - position;
-    float distance = sqrt(dir.x * dir.x + dir.y * dir.y);
-    const float detectionradius = 200.0f;
-    if (distance < detectionradius)
-    {
-        dir.x /= distance;
-        dir.y /= distance;
-        position.x+=dir.x*speed;
-        position.y+=dir.y*speed;
-    }
+    sprite.setTextureRect(sf::IntRect(frameWidth + 1, frameHeight + 1, frameWidth, frameHeight));
+
 }
 
-Zombie::Zombie()
-      : Enemy(100.0f, 20.0f, 3.0f, 2.5f) {}
+void Enemy::update(const sf::Time& deltaTime, Hero& hero)
+{
+    /*if (!isAlive || isDying) return; //brak update'u jesli obiekt jest martwy lub umierajacy
 
-Goblin::Goblin()
-      : Enemy(50.0f, 10.0f, 1.0f, 6.0f) {}
+    if (isStunned)
+    {
+        //updateCooldown(deltaTime);
+        return;
+    }*/
+    sf::Vector2f direction = hero.getPosition() - position;
 
-Skeleton::Skeleton()
-        : Enemy(10.0f, 25.0f, 2.0f, 4.5f) {}
+    float length = sqrt(direction.x * direction.x + direction.y * direction.y);
+    if (length != 0)
+    {
+        direction /= length;
+    }
+    sf::Vector2f nextPosition = position + direction * speed * deltaTime.asSeconds();
+        //if (!checkCollision(tempPos, hero)) {
+        //    newPos = tempPos;
+        //} //else {
+          //  break;
+        //}
+    //}
+    position = nextPosition;
+    sprite.setPosition(position);
 
-Boss::Boss()
-    : Enemy(1000.0f, 50.0f, 20.0f, 3.0f) {}
+    if (abs(direction.x) > abs(direction.y)) {
+        directionEnum = (direction.x > 0) ? Right : Left;
+    } else {
+        directionEnum = (direction.y > 0) ? Down : Up;
+    }
+
+    //if (attackCooldownTimer > 0.0f) {
+      //  attackCooldownTimer -= deltaTime.asSeconds();
+    //}
+
+    //if (attackCooldownTimer <= 0.0f) {
+      //  attack(player);
+        //attackCooldownTimer = attackCooldown;
+    //}
+}
+
+void Enemy::animate(const sf::Time& deltaTime)
+{
+    animationTimer += deltaTime.asSeconds();
+    if (isDying)
+    {
+        if (animationTimer >= 0.3f)
+        {
+            animationTimer = 0.0f;
+            deathAnimationFrame++;
+            if (deathAnimationFrame >= 4)
+            {
+                isDying = false;
+                isAlive = false;
+                return;
+            }
+        }
+
+        sprite.setTextureRect(sf::IntRect(deathAnimationFrame * frameWidth + 1, frameHeight * 4 + 1, frameWidth, frameHeight));
+        return;
+    }
+    if (isAttacking)
+        {
+            if (animationTimer >= 0.3f)
+            {
+                animationTimer = 0.0f;
+                attackAnimationFrame++;
+                if (attackAnimationFrame >= 3)
+                {
+                    isAttacking = false;
+                    attackAnimationFrame = 0;
+                }
+            }
+            int attackDirectionOffset;
+            switch (directionEnum)
+            {
+                case Up:    attackDirectionOffset = frameHeight * 0; break;
+                case Down:  attackDirectionOffset = frameHeight * 1; break;
+                case Left:  attackDirectionOffset = frameHeight * 2; break;
+                case Right: attackDirectionOffset = frameHeight * 3; break;
+            }
+            sprite.setTextureRect(sf::IntRect(attackAnimationFrame * frameWidth + 1, frameHeight * 5 + attackDirectionOffset + 1, frameWidth, frameHeight));
+            return;
+        }
+    if (!isStunned)
+        {
+        if (animationTimer >= 0.3f) {
+            animationFrame = (animationFrame + 1) % 3;
+            animationTimer = 0.f;
+        }
+    }
+
+    int MovingDirection;
+    switch (directionEnum)
+    {
+        case Up: MovingDirection = frameHeight * 0; break;
+        case Down: MovingDirection = frameHeight * 1; break;
+        case Left: MovingDirection = frameHeight * 2; break;
+        case Right: MovingDirection = frameHeight * 3; break;
+    }
+
+    sprite.setTextureRect(sf::IntRect(animationFrame * frameWidth + 1, MovingDirection + 1, frameWidth, frameHeight));
+}
+
+void Enemy::draw(sf::RenderWindow& window)
+{
+    if (!isAlive && !isDying) return;
+
+    window.draw(sprite);
+}
+
+
+Zombie::Zombie(): Enemy(100.0f, 20.0f, 3.0f, 35.0f)
+{
+    if (!texture.loadFromFile("ProjektPPO\\textures\\zombie.png"))
+        {
+        cerr << "Nie udalo sie wczytac tekstury zombie!\n";
+        }
+        sprite.setPosition(0,0);
+}
+
+Goblin::Goblin(): Enemy(50.0f, 10.0f, 1.0f, 55.0f)
+{
+    if (!texture.loadFromFile("ProjektPPO\\textures\\goblin.png"))
+        {
+        cerr << "Nie udalo sie wczytac tekstury goblina!\n";
+        }
+}
+
+Ogre::Ogre(): Enemy(1000.0f, 50.0f, 20.0f, 3.0f)
+{
+    if (!texture.loadFromFile("ProjektPPO\\textures\\ogr.png"))
+        {
+        cerr << "Nie udalo sie wczytac tekstury ogra!\n";
+        }
+}

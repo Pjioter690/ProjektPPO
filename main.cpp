@@ -6,9 +6,6 @@ using namespace std;
 
 int main()
 {
-#ifdef _WIN32
-    SetProcessDPIAware();
-#endif
     Game game;
     game.run();
     return 0;

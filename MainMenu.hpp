@@ -18,7 +18,7 @@ public:
     void chooseCharacter(const sf::RenderWindow& window);
     bool checkIfMainMenuOpen();
     bool checkIfCharacterChooseScreenOpen();
-    std::unique_ptr<Alive> selectedHero;
+    unique_ptr<Alive> selectedHero;
     Alive* getSelectedHero();
 
 private:
