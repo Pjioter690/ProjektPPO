@@ -18,6 +18,7 @@ public:
     void animate();
     sf::Vector2f getPosition() const;
     virtual void draw(sf::RenderWindow& window);
+    float getDmg();
 protected:
     sf::Sprite sprite;
     sf::Texture texture;

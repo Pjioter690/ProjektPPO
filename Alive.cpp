@@ -36,6 +36,7 @@ void Alive::draw(sf::RenderWindow& window)
 {
     window.draw(shape);
 }
+float Alive::getDmg() {return dmg;}
 //----Hero----
 
 Hero::Hero(float x, float y, float hp, float dmg, float armor, float mana)

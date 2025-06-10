@@ -54,6 +54,7 @@ void Game::update(sf::Time deltaTime) {
         auto* weapon = dynamic_cast<Weapon*>(mainMenu.getSelectedWeapon());
         hero->control(deltaTime,map1,dynamic_cast<Weapon*>(mainMenu.getSelectedWeapon()));    // <--- sterowanie!
         hero->update();     // <--- aktualizacja animacji
+        weapon->attack(hero->getDmg(),enemies);
         if(spawn)
         {
 

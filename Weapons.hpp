@@ -3,13 +3,15 @@
 
 #include <SFML/Graphics.hpp>
 #include<vector>
+#include<memory>
 
 class Alive;
+class Enemy;
 
 class Weapon{
 public:
     Weapon(float dmg);
-    void attack(float dmg,std::vector<Alive> enemies);
+    void attack(float dmg,std::vector<std::unique_ptr<Enemy>> enemies);
     void followPlayer(sf::Vector2f position, int rotation);
     float getDmg();
     void draw(sf::RenderWindow& window);
