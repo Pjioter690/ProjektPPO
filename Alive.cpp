@@ -35,7 +35,8 @@ void Alive::draw(sf::RenderWindow& window)
 //----Hero----
 
 Hero::Hero(float hp, float dmg, float armor, float mana)
-    : Alive(hp, dmg, armor,150.f),mana(mana),exp(0),lvl(1), maxMana(mana), maxExp(100/*przykladowa wartosc do ustalenia*/), maxHp(hp) {}
+    : Alive(hp, dmg, armor,150.f),mana(mana),exp(0),lvl(1), maxMana(mana), maxExp(100/*przykladowa wartosc do ustalenia*/), maxHp(hp),
+    rotation(3/*kierunek zwrócenia siê postaci: 1 oznacza górê, 2 prawo, 3 dó³ a 4 lewo, wykorzystywane w ustawianiu hitboxa broni i potancjalnie w animacji*/) {}
 
 
 //Metody do uzyskania danych
@@ -51,15 +52,19 @@ void Hero::control(sf::Time deltaTime, Mapa map1){
     sf::Vector2f nextPosition = position;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::W)) {
         nextPosition.y -= speed*deltaTime.asSeconds();
+        rotation = 1;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::S)) {
         nextPosition.y += speed*deltaTime.asSeconds();
+        rotation = 3;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::A)) {
         nextPosition.x -= speed*deltaTime.asSeconds();
+        rotation = 2;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::D)) {
         nextPosition.x += speed*deltaTime.asSeconds();
+        rotation = 0;
     }
     if(!map1.isWall(nextPosition,20.f)){
             position = nextPosition;

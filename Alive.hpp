@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include"Map.hpp"
+#include"Weapons.hpp"
 #include<vector>
 
 
@@ -41,6 +42,7 @@ public:
 
 protected:
     Hero(float hp, float dmg, float armor, float mana);
+    Weapon herosWeapon;
 private:
     float mana;
     float exp;
@@ -48,7 +50,7 @@ private:
     float maxMana;
     float maxExp;
     float maxHp;
-    //sf::Vector2f position;
+    int rotation;
 };
 class Knight : public Hero{
 public:
