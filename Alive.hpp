@@ -83,6 +83,9 @@ public:
 protected:
     Enemy(float x, float y, float hp, float dmg, float armor, float speed);
 
+    void attack(Hero& hero);
+    float attackCooldown, attackCooldownTimer;
+
     int frameWidth, frameHeight;
     bool isAlive = true;
     bool isDying = false;

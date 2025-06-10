@@ -16,7 +16,7 @@ sf::Vector2f Alive::getPosition() const
 }
 void Alive::dealDmg(float enemyDmg)
 {
-    hp -=(enemyDmg*(100-armor));
+    hp -= enemyDmg * (1.0f - armor / 100.0f);
     cout<<enemyDmg<<endl;
 }
 
@@ -100,7 +100,11 @@ Rogue::Rogue()
 //----Enemy----
 
 Enemy::Enemy(float x, float y, float hp, float dmg, float armor, float speed): Alive(x, y, hp, dmg, armor,speed), frameHeight(32.f),
-frameWidth(32.f) {}
+frameWidth(32.f)
+{
+    sprite.setOrigin(frameWidth / 2.f, frameHeight / 2.f);
+    sprite.setPosition(x, y);
+}
 
 int Enemy::killedEnemies = 0;
 
@@ -109,17 +113,19 @@ Enemy::~Enemy() = default;
 void Enemy::dealDmg(float enemyDmg)
 {
     hp -=(enemyDmg*(100-armor));
-    //cout << "Przeciwnik otrzymal obrazenia, zostalo mu " << hp << " punktow zycia.\n";
-    if (hp <= 0 && !isDying) {
+    if (hp <= 0 && !isDying)
+    {
         onDeath();
     }
-    if (!isStunned) {
+    if (!isStunned)
+    {
         isStunned = true;
         stunTimer = 0.0f;
     }
 }
 
-void Enemy::onDeath() {
+void Enemy::onDeath()
+{
     isDying = true;
     deathAnimationFrame = 0;
     animationTimer = 0.0f;
@@ -127,7 +133,22 @@ void Enemy::onDeath() {
     cout << "Liczba zabitych przeciwników: " << killedEnemies << endl;
 }
 
-void Enemy::update(const sf::Time& deltaTime, Hero& hero, const vector<std::unique_ptr<Enemy>>& enemies)
+void Enemy::attack(Hero& hero) {
+    if (!isAlive || isDying || isAttacking) return;
+
+    sf::Vector2f difference = hero.getPosition() - position;
+    float distance = sqrt(difference.x * difference.x + difference.y * difference.y);
+
+    if (distance <= frameWidth * 1.5f) {
+        isAttacking = true;
+        animationTimer = 0.0f;
+        attackAnimationFrame = 0;
+        hero.dealDmg(dmg);
+        cout << "Gracz zostal zaatakowany i otrzymal " << dmg << " punktow obrazen.\n";
+    }
+}
+
+void Enemy::update(const sf::Time& deltaTime, Hero& hero, const vector<unique_ptr<Enemy>>& enemies)
 {
     if (!isAlive || isDying)//brak update'u jesli obiekt jest martwy lub umierajacy
         return;
@@ -161,15 +182,15 @@ void Enemy::update(const sf::Time& deltaTime, Hero& hero, const vector<std::uniq
         {
             directionEnum = (direction.y > 0) ? Down : Up;
         }
-
-    //if (attackCooldownTimer > 0.0f) {
-      //  attackCooldownTimer -= deltaTime.asSeconds();
-    //}
-
-    //if (attackCooldownTimer <= 0.0f) {
-      //  attack(player);
-        //attackCooldownTimer = attackCooldown;
-    //}
+        if (attackCooldownTimer > 0.0f)
+        {
+            attackCooldownTimer -= deltaTime.asSeconds();
+        }
+        if (attackCooldownTimer <= 0.0f)
+        {
+        attack(hero);
+        attackCooldownTimer = attackCooldown;
+        }
     }
 }
 
@@ -284,32 +305,18 @@ void Enemy::draw(sf::RenderWindow& window)
 
 Zombie::Zombie(float x, float y) : Enemy(x, y, 100.0f, 20.0f, 3.0f, 35.0f)
 {
-    if (!texture.loadFromFile("ProjektPPO\\textures\\zombie.png")) {
+    if (!texture.loadFromFile("ProjektPPO\\textures\\zombie.png"))
         cerr << "Nie udalo sie wczytac tekstury zombie!\n";
-    }
-
-    sprite.setOrigin(frameWidth / 2.f, frameHeight / 2.f); // Wyśrodkowanie sprite'a
-    sprite.setPosition(x, y);
-
-    cout << "Utworzono Zombie\n";
 }
 
 Goblin::Goblin(float x, float y) : Enemy(x, y, 50.0f, 10.0f, 1.0f, 55.0f)
 {
-    if (!texture.loadFromFile("ProjektPPO\\textures\\goblin.png")) {
+    if (!texture.loadFromFile("ProjektPPO\\textures\\goblin.png"))
         cerr << "Nie udalo sie wczytac tekstury goblina!\n";
-    }
-
-    sprite.setOrigin(frameWidth / 2.f, frameHeight / 2.f);
-    sprite.setPosition(x, y);
 }
 
 Ogre::Ogre(float x, float y) : Enemy(x, y, 1000.0f, 50.0f, 20.0f, 3.0f)
 {
-    if (!texture.loadFromFile("ProjektPPO\\textures\\ogr.png")) {
+    if (!texture.loadFromFile("ProjektPPO\\textures\\ogr.png"))
         cerr << "Nie udalo sie wczytac tekstury ogra!\n";
-    }
-
-    sprite.setOrigin(frameWidth / 2.f, frameHeight / 2.f);
-    sprite.setPosition(x, y);
 }
