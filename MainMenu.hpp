@@ -6,6 +6,7 @@ using namespace std;
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "Alive.hpp"
+#include "Weapons.hpp"
 #include <memory>
 
 class MainMenu{
@@ -19,7 +20,9 @@ public:
     bool checkIfMainMenuOpen();
     bool checkIfCharacterChooseScreenOpen();
     unique_ptr<Alive> selectedHero;
+    unique_ptr<Weapon> selectedWeapon;
     Alive* getSelectedHero();
+    Weapon* getSelectedWeapon();
 
 private:
     sf::Texture MenuBackground;
