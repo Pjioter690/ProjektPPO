@@ -5,6 +5,7 @@
 #include"Map.hpp"
 #include"Weapons.hpp"
 #include<vector>
+#include<memory>
 
 
 class Alive{
