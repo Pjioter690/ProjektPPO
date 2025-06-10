@@ -14,6 +14,10 @@ sf::Vector2f Alive::getPosition() const
 {
     return position;
 }
+void Alive::dealDmg(float enemyDmg)
+{
+    hp -=(enemyDmg*(100-armor));
+}
 
 void Alive::addArmor(float addArmor)
 {
