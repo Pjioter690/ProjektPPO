@@ -11,6 +11,7 @@ Game::Game(): scale(60),
     playerHUD(scale){
     view.setSize(sf::Vector2f{320.0f, 180.0f});
     mWindow.create(sf::VideoMode({static_cast<unsigned int>(windowWidth),static_cast<unsigned int>(windowHeight)}), "Dungeon Adventures",sf::Style::Titlebar | sf::Style::Close);
+    enemies.emplace_back(std::make_unique<Zombie>(posX, posY));
 }
 
 void Game::run() {
