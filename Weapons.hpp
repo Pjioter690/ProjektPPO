@@ -10,7 +10,7 @@ public:
     Weapon();
     //void attack(float dmg,std::vector<Alive> enemies);
     void followPlayer(sf::Vector2f position, int rotation);
-    void draw(sf::RenderWindow window);
+    void draw(sf::RenderWindow& window);
 private:
     sf::RectangleShape weaponHitbox;
 };
@@ -23,4 +23,5 @@ class Wand : public Weapon{
 class Knife : public Weapon{
     Knife();
 };
+
 #endif // WEAPONS_HPP

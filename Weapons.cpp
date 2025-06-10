@@ -15,6 +15,6 @@ void Weapon::followPlayer(sf::Vector2f position,int rotation){
     weaponHitbox.setPosition(position);
     weaponHitbox.setRotation(rotation*90.f);
 }
-void Weapon::draw(sf::RenderWindow window){
+void Weapon::draw(sf::RenderWindow& window){
     window.draw(weaponHitbox);
 }

@@ -3,9 +3,9 @@
 
 #include <SFML/Graphics.hpp>
 #include"Map.hpp"
-#include"Weapons.hpp"
 #include<vector>
 
+class Weapon;
 
 class Alive{
 public:
@@ -42,7 +42,7 @@ public:
 
 protected:
     Hero(float hp, float dmg, float armor, float mana);
-    Weapon herosWeapon;
+    Weapon* herosWeapon;
 private:
     float mana;
     float exp;

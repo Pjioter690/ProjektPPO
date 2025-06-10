@@ -69,6 +69,7 @@ void Hero::control(sf::Time deltaTime, Mapa map1){
     if(!map1.isWall(nextPosition,20.f)){
             position = nextPosition;
             shape.setPosition(position);
+            //herosWeapon.followPlayer(position, rotation);
     }
 }
 Knight::Knight()
