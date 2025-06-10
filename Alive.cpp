@@ -14,6 +14,10 @@ sf::Vector2f Alive::getPosition() const
 {
     return position;
 }
+void Alive::dealDmg(float enemyDmg)
+{
+    hp -=(enemyDmg*(100-armor));
+}
 
 void Alive::addArmor(float addArmor)
 {
@@ -48,7 +52,7 @@ float Hero::getmaxExp() {return maxExp;}
 float Hero::getmaxHp() {return maxHp;}
 
 
-void Hero::control(sf::Time deltaTime, Mapa map1){
+void Hero::control(sf::Time deltaTime, Mapa map1,Weapon* weapon){
     sf::Vector2f nextPosition = position;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::W)) {
         nextPosition.y -= speed*deltaTime.asSeconds();
@@ -69,7 +73,7 @@ void Hero::control(sf::Time deltaTime, Mapa map1){
     if(!map1.isWall(nextPosition,20.f)){
             position = nextPosition;
             shape.setPosition(position);
-            //herosWeapon.followPlayer(position, rotation);
+            weapon->followPlayer(position, rotation);
     }
 }
 Knight::Knight()

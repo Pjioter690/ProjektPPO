@@ -51,7 +51,8 @@ void Game::update(sf::Time deltaTime) {
         mainMenu.chooseCharacter(mWindow);
 
     if (auto* hero = dynamic_cast<Hero*>(mainMenu.getSelectedHero())) {
-        hero->control(deltaTime,map1);    // <--- sterowanie!
+        auto* weapon = dynamic_cast<Weapon*>(mainMenu.getSelectedWeapon());
+        hero->control(deltaTime,map1,dynamic_cast<Weapon*>(mainMenu.getSelectedWeapon()));    // <--- sterowanie!
         hero->update();     // <--- aktualizacja animacji
         if(spawn)
         {
@@ -83,10 +84,12 @@ void Game::render() {
         mainMenu.drawCharacterChooseScreen(mWindow);
     }
     else if (auto* hero = mainMenu.getSelectedHero()) {
+        auto* weapon = dynamic_cast<Weapon*>(mainMenu.getSelectedWeapon());
         view.setCenter(hero->getPosition());
         mWindow.setView(view);
         map1.draw(mWindow);
         hero->draw(mWindow);
+        weapon->draw(mWindow);
         for (auto& enemy : enemies)
         {
             enemy->draw(mWindow);
