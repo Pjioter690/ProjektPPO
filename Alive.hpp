@@ -19,6 +19,7 @@ public:
     sf::Vector2f getPosition() const;
     virtual void draw(sf::RenderWindow& window);
     float getDmg();
+    sf::FloatRect getGlobalBounds() const;
 protected:
     sf::Sprite sprite;
     sf::Texture texture;

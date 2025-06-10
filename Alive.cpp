@@ -17,6 +17,7 @@ sf::Vector2f Alive::getPosition() const
 void Alive::dealDmg(float enemyDmg)
 {
     hp -=(enemyDmg*(100-armor));
+    cout<<hp<<endl;
 }
 
 void Alive::addArmor(float addArmor)
@@ -37,6 +38,9 @@ void Alive::draw(sf::RenderWindow& window)
     window.draw(shape);
 }
 float Alive::getDmg() {return dmg;}
+sf::FloatRect Alive::getGlobalBounds() const {
+    return sprite.getGlobalBounds();
+}
 //----Hero----
 
 Hero::Hero(float x, float y, float hp, float dmg, float armor, float mana)
