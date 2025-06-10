@@ -11,7 +11,6 @@ class Game {
 public:
     Game();
     void run();
-    Zombie zomb;
 
 private:
     sf::View view;
@@ -28,6 +27,7 @@ private:
     MainMenu mainMenu;
     PlayerHUD playerHUD;
     Mapa map1;
+    vector<unique_ptr<Enemy>> enemies;
 };
 
 #endif

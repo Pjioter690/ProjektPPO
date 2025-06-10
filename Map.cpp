@@ -7,7 +7,7 @@ Mapa::Mapa(){
     wall.setSize({100.f,100.f});
     std::ifstream file("ProjektPPO\\maps\\map1.txt");
     if (!file) {
-        cerr<< "Nie mo¿na otworzyæ pliku\n";
+        cerr<< "Nie mozna otworzyc pliku\n";
     }
 
     while (std::getline(file, line)) {

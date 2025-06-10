@@ -84,7 +84,7 @@ private:
 class Zombie : public Enemy
 {
     public:
-    Zombie();
+    Zombie(int x, int y);
 };
 
 class Goblin : public Enemy

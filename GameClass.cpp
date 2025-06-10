@@ -9,7 +9,7 @@ Game::Game(): scale(60),
     windowHeight(9*scale),
     mainMenu(windowWidth, windowHeight, scale),
     playerHUD(scale){
-    view.setSize(sf::Vector2f{960.0f, 540.0f});
+    view.setSize(sf::Vector2f{320.0f, 180.0f});
     mWindow.create(sf::VideoMode({static_cast<unsigned int>(windowWidth),static_cast<unsigned int>(windowHeight)}), "Dungeon Adventures",sf::Style::Titlebar | sf::Style::Close);
 }
 
@@ -52,8 +52,11 @@ void Game::update(sf::Time deltaTime) {
         hero->control(deltaTime,map1);    // <--- sterowanie!
         hero->update();     // <--- aktualizacja animacji
         playerHUD.update(mWindow, *hero);
-        zomb.update(deltaTime, *hero);
-        zomb.animate(deltaTime);
+        for(auto& enemy : enemies)
+        {
+            enemy->update(deltaTime, *hero);
+            enemy->animate(deltaTime);
+        }
     }
     // update wszystkich obiekt�w + logika gry
 }
@@ -74,7 +77,10 @@ void Game::render() {
         mWindow.setView(view);
         map1.draw(mWindow);
         hero->draw(mWindow);
-        zomb.draw(mWindow);
+        for (auto& enemy : enemies)
+        {
+            enemy->draw(mWindow);
+        }
         playerHUD.draw(mWindow);
     }
     mWindow.display();

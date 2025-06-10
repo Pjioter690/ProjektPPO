@@ -85,11 +85,9 @@ Rogue::Rogue()
 //----Enemy----
 
 Enemy::Enemy(float hp, float dmg, float armor, float speed): Alive(hp, dmg, armor,speed),isAlive(true), isDying(false), animationTimer(0.0f), deathAnimationFrame(0),
-animationFrame(1), frameHeight(32), frameWidth(32), position(0,0), directionEnum(Down)
-
+animationFrame(1), frameHeight(32.f), frameWidth(32.f), position(0,0), directionEnum(Down)
 {
     sprite.setTextureRect(sf::IntRect(frameWidth + 1, frameHeight + 1, frameWidth, frameHeight));
-
 }
 
 void Enemy::update(const sf::Time& deltaTime, Hero& hero)
@@ -108,21 +106,27 @@ void Enemy::update(const sf::Time& deltaTime, Hero& hero)
     {
         direction /= length;
     }
-    sf::Vector2f nextPosition = position + direction * speed * deltaTime.asSeconds();
+    if(length<300.0f)
+    {
+        sf::Vector2f nextPosition = position + direction * speed * deltaTime.asSeconds();
         //if (!checkCollision(tempPos, hero)) {
         //    newPos = tempPos;
         //} //else {
           //  break;
         //}
     //}
-    position = nextPosition;
-    sprite.setPosition(position);
 
-    if (abs(direction.x) > abs(direction.y)) {
-        directionEnum = (direction.x > 0) ? Right : Left;
-    } else {
-        directionEnum = (direction.y > 0) ? Down : Up;
-    }
+        position = nextPosition;
+        sprite.setPosition(position);
+
+        if (abs(direction.x) > abs(direction.y))
+        {
+            directionEnum = (direction.x > 0) ? Right : Left;
+        }
+        else
+        {
+            directionEnum = (direction.y > 0) ? Down : Up;
+        }
 
     //if (attackCooldownTimer > 0.0f) {
       //  attackCooldownTimer -= deltaTime.asSeconds();
@@ -132,6 +136,7 @@ void Enemy::update(const sf::Time& deltaTime, Hero& hero)
       //  attack(player);
         //attackCooldownTimer = attackCooldown;
     //}
+    }
 }
 
 void Enemy::animate(const sf::Time& deltaTime)
@@ -205,13 +210,13 @@ void Enemy::draw(sf::RenderWindow& window)
 }
 
 
-Zombie::Zombie(): Enemy(100.0f, 20.0f, 3.0f, 35.0f)
+Zombie::Zombie(int x, int y): Enemy(100.0f, 20.0f, 3.0f, 35.0f)
 {
     if (!texture.loadFromFile("ProjektPPO\\textures\\zombie.png"))
         {
         cerr << "Nie udalo sie wczytac tekstury zombie!\n";
         }
-        sprite.setPosition(0,0);
+        sprite.setPosition(x,y);
 }
 
 Goblin::Goblin(): Enemy(50.0f, 10.0f, 1.0f, 55.0f)
