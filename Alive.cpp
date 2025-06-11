@@ -59,12 +59,12 @@ float Hero::getmaxExp() {return maxExp;}
 float Hero::getmaxHp() {return maxHp;}
 
 void Hero::animate(const sf::Time& deltaTime) {
-    static const int frameSize = 128; // Rozmiar klatki (można łatwo zmienić)
+    static const int frameSize = 32; // Rozmiar klatki (można łatwo zmienić)
     static const int movementFrames = 4;
     static const int attackFrames = 3;
     static const int deathFrames = 4;
     static float animationSpeed = 0.15f;
-
+    sprite.setOrigin({frameSize/2,frameSize/2});
     static int currentFrame = 0;
     static float timer = 0.f;
 
@@ -76,7 +76,7 @@ void Hero::animate(const sf::Time& deltaTime) {
             timer = 0.f;
             currentFrame = (currentFrame + 1) % deathFrames;
         }
-        sprite.setTextureRect(sf::IntRect(currentFrame * frameSize, frameSize * 4, frameSize, frameSize));
+        sprite.setTextureRect(sf::IntRect(currentFrame * frameSize , frameSize * 4, frameSize, frameSize));
         sprite.setPosition(position);
         return;
     }
@@ -150,7 +150,7 @@ void Hero::control(sf::Time deltaTime, Mapa map1,Weapon* weapon){
         nextPosition.x += speed*deltaTime.asSeconds();
         rotation = 1;
     }
-    if(!map1.isWall(nextPosition,20.f)){
+    if(!map1.isWall(nextPosition,10.f)){
             position = nextPosition;
             sprite.setPosition(position);
             weapon->followPlayer(position, rotation);

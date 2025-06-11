@@ -42,11 +42,11 @@ void Mapa::draw(sf::RenderWindow& window){
     }
 }
 bool Mapa::isWall(sf::Vector2f position, float radius){
-    sf::CircleShape PlayerCharacter;
-    PlayerCharacter.setRadius(radius);
+    sf::RectangleShape PlayerCharacter;
+    PlayerCharacter.setSize({8.f,16.f});
     sf::FloatRect bounds = PlayerCharacter.getLocalBounds();
     PlayerCharacter.setOrigin({bounds.left + bounds.width / 2.f,
-                       bounds.top + bounds.height / 2.f});
+                       (bounds.top + bounds.height / 2.f)-8.f});
     PlayerCharacter.setPosition(position);
     sf::FloatRect playerBounds = PlayerCharacter.getGlobalBounds();
     for (const auto& wall : walls) {

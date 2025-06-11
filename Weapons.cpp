@@ -1,8 +1,7 @@
 #include"Weapons.hpp"
 
 Weapon::Weapon(float dmg, float cooldown):dmg(dmg),cooldown(cooldown){
-    //weaponHitbox.setFillColor(sf::Color::Transparent);
-    weaponHitbox.setFillColor(sf::Color::Black);
+    weaponHitbox.setFillColor(sf::Color::Transparent);
     weaponHitbox.setRotation(90.f);
     weaponHitbox.setPosition({350.f,350.f});
 }
