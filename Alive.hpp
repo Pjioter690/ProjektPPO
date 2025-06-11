@@ -20,6 +20,7 @@ public:
     virtual void draw(sf::RenderWindow& window);
     float getDmg();
     sf::FloatRect getGlobalBounds() const;
+    sf::Clock fightClock; //liczy czas spÄ™dzony poza walkÄ…
 protected:
     sf::Sprite sprite;
     sf::Texture texture;
@@ -33,8 +34,8 @@ protected:
 };
 class Hero : public Alive{
 public:
-    void control(sf::Time deltaTime,Mapa map1,Weapon*); //poruszanie siê postaci¹
-    void lvlUp(); //zwiêkszanie poziomu postaci
+    void control(sf::Time deltaTime,Mapa map1,Weapon*); //poruszanie siÃª postaciÂ¹
+    void lvlUp(); //zwiÃªkszanie poziomu postaci
     void gainExp();
     sf::Clock ManaRegenClock;
     sf::Clock HpRegenClock;

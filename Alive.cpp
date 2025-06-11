@@ -18,6 +18,7 @@ void Alive::dealDmg(float enemyDmg)
 {
     hp -= enemyDmg * (1.0f - armor / 100.0f);
     cout<<"gracz"<<enemyDmg<<endl;
+    fightClock.restart();
 }
 
 void Alive::addArmor(float addArmor)
@@ -71,12 +72,15 @@ void Hero::regenerate()
         }
     }
     //regeneracja Zdrowia
-    if (hp < maxHp) {
-        float timeSinceHealthRegen = HpRegenClock.getElapsedTime().asSeconds();
-        if (timeSinceHealthRegen >= 1.f) {
-            hp = std::min(hp + HealthRegen, maxHp);
-            std::cout << "Zregenerowano zdrowie" <<HealthRegen<< std::endl;
-            HpRegenClock.restart();
+    float timeOutsideBattle = fightClock.getElapsedTime().asSeconds();
+    if(timeOutsideBattle>=10.f){
+         if (hp < maxHp) {
+            float timeSinceHealthRegen = HpRegenClock.getElapsedTime().asSeconds();
+            if (timeSinceHealthRegen >= 1.f) {
+                hp = std::min(hp + HealthRegen, maxHp);
+                std::cout << "Zregenerowano zdrowie" <<HealthRegen<< std::endl;
+                HpRegenClock.restart();
+            }
         }
     }
 }
@@ -334,13 +338,13 @@ void Enemy::draw(sf::RenderWindow& window)
 }
 
 
-Zombie::Zombie(float x, float y) : Enemy(x, y, 1000.0f, 20.0f, 3.0f, 35.0f, 32.0f, 32.0f)
+Zombie::Zombie(float x, float y) : Enemy(x, y, 80.0f, 20.0f, 3.0f, 35.0f, 32.0f, 32.0f)
 {
     if (!texture.loadFromFile("ProjektPPO\\textures\\zombie.png"))
         cerr << "Nie udalo sie wczytac tekstury zombie!\n";
 }
 
-Goblin::Goblin(float x, float y) : Enemy(x, y, 50.0f, 10.0f, 1.0f, 55.0f, 18.0f, 18.0f)
+Goblin::Goblin(float x, float y) : Enemy(x, y, 30.0f, 10.0f, 1.0f, 55.0f, 18.0f, 18.0f)
 {
     if (!texture.loadFromFile("ProjektPPO\\textures\\goblin.png"))
         cerr << "Nie udalo sie wczytac tekstury goblina!\n";
