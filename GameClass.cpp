@@ -59,8 +59,8 @@ void Game::update(sf::Time deltaTime) {
         if(spawn)
         {
 
-                enemies.emplace_back(std::make_unique<Goblin>(30.f, 40.f));
-                enemies.emplace_back(std::make_unique<Ogre>(90.f, 40.f));
+                enemies.emplace_back(std::make_unique<Goblin>(150.f, 150.f));
+                enemies.emplace_back(std::make_unique<Zombie>(150.f, 200.f));
 
 
                 spawn=false;

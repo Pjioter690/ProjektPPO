@@ -45,7 +45,7 @@ sf::FloatRect Alive::getGlobalBounds() const {
 //----Hero----
 
 Hero::Hero(float x, float y, float hp, float dmg, float armor, float mana, float speed,float HpRegen)
-    : Alive(x, y, hp, dmg, armor,speed,HpRegen),mana(mana),exp(0),lvl(1), maxMana(mana), maxExp(100/*przykladowa wartosc do ustalenia*/), maxHp(hp),
+    : Alive(x, y, hp, dmg, armor,speed,HpRegen),mana(mana),exp(0),lvl(1), maxMana(mana), maxExp(10/*przykladowa wartosc do ustalenia*/), maxHp(hp),
     rotation(3/*kierunek zwrócenia siê postaci: 1 oznacza górê, 2 prawo, 3 dó³ a 4 lewo, wykorzystywane w ustawianiu hitboxa broni i potancjalnie w animacji*/) {}
 
 
@@ -338,7 +338,7 @@ void Enemy::draw(sf::RenderWindow& window)
 }
 
 
-Zombie::Zombie(float x, float y) : Enemy(x, y, 80.0f, 20.0f, 3.0f, 35.0f, 32.0f, 32.0f)
+Zombie::Zombie(float x, float y) : Enemy(x, y, 80.0f, 20.0f, 3.0f, 35.0f, 21.0f, 21.0f)
 {
     if (!texture.loadFromFile("ProjektPPO\\textures\\zombie.png"))
         cerr << "Nie udalo sie wczytac tekstury zombie!\n";
