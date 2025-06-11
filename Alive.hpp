@@ -37,26 +37,28 @@ public:
     void control(sf::Time deltaTime,Mapa map1,Weapon*); //poruszanie siê postaci¹
     void lvlUp(); //zwiêkszanie poziomu postaci
     void gainExp();
-    sf::Clock ManaRegenClock;
+    sf::Clock energyRegenClock;
     sf::Clock HpRegenClock;
-    void resetMana();
+    void resetenergy();
     void regenerate();
 
     //Metody do uzyskania danych
-    float getMana();
+    float getenergy();
     float getExp();
     float getHp();
-    float getmaxMana();
+    float getmaxenergy();
     float getmaxExp();
     float getmaxHp();
 
 protected:
-    Hero(float x, float y, float hp, float dmg, float armor, float mana, float speed,float HpRegen);
+    Hero(float x, float y, float hp, float dmg, float armor, float energy, float speed,float HpRegen);
+    float animationTimer;
+    float frameWidth, frameHeight;
 private:
-    float mana;
+    float energy;
     float exp;
     float lvl;
-    float maxMana;
+    float maxenergy;
     float maxExp;
     float maxHp;
 

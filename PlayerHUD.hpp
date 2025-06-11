@@ -14,8 +14,8 @@ public:
     void update(const sf::RenderWindow& window, Hero& player);
     void draw(sf::RenderWindow& window);
 private:
-    sf::RectangleShape hpBarBackground, expBarBackground, manaBarBackground;
-    sf::RectangleShape hpBarForeground, expBarForeground, manaBarForeground;
+    sf::RectangleShape hpBarBackground, expBarBackground, energyBarBackground;
+    sf::RectangleShape hpBarForeground, expBarForeground, energyBarForeground;
     sf::Font font;
     sf::Text levelText;
 

@@ -41,23 +41,23 @@ PlayerHUD::PlayerHUD(int scale)
     levelText.setPosition({10.0f, 100.0f});*/
 
     //----Pasek Many----
-    manaBarBackground.setFillColor(sf::Color(90, 90, 100));
-    manaBarBackground.setOutlineColor(sf::Color(50, 50, 50));
-    scaleObject(manaBarBackground);
-    manaBarBackground.setSize(sf::Vector2f(250.0f, 10.0f));
-    manaBarBackground.setOutlineThickness(3.0f);
-    manaBarBackground.setPosition({10.0f, 65.0f});
+    energyBarBackground.setFillColor(sf::Color(90, 90, 100));
+    energyBarBackground.setOutlineColor(sf::Color(50, 50, 50));
+    scaleObject(energyBarBackground);
+    energyBarBackground.setSize(sf::Vector2f(250.0f, 10.0f));
+    energyBarBackground.setOutlineThickness(3.0f);
+    energyBarBackground.setPosition({10.0f, 65.0f});
 
-    manaBarForeground.setFillColor(sf::Color(50, 50, 255));
-    scaleObject(manaBarForeground);
-    manaBarForeground.setPosition({10.0f, 65.0f});
+    energyBarForeground.setFillColor(sf::Color::Yellow);
+    scaleObject(energyBarForeground);
+    energyBarForeground.setPosition({10.0f, 65.0f});
 }
 
 void PlayerHUD::update(const sf::RenderWindow& window, Hero& player)
 {
     hpBarForeground.setSize(sf::Vector2f(300.0f*(player.getHp()/player.getmaxHp()), 25.0f));
     expBarForeground.setSize(sf::Vector2f(250.0f*(player.getExp()/player.getmaxExp()), 10.0f));
-    manaBarForeground.setSize(sf::Vector2f(250.0f*(player.getMana()/player.getmaxMana()), 10.0f));
+    energyBarForeground.setSize(sf::Vector2f(250.0f*(player.getenergy()/player.getmaxenergy()), 10.0f));
   // levelText.setString("Poziom: " + std::to_string(player->getLevel()));*/
 }
 
@@ -70,8 +70,8 @@ void PlayerHUD::draw(sf::RenderWindow& window)
     window.draw(expBarBackground);
     window.draw(expBarForeground);
 
-    window.draw(manaBarBackground);
-    window.draw(manaBarForeground);
+    window.draw(energyBarBackground);
+    window.draw(energyBarForeground);
 
     window.draw(levelText);
 }

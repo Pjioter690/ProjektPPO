@@ -12,7 +12,7 @@ class Hero;
 class Weapon{
 public:
     Weapon(float dmg, float cooldown);
-    void attack(float dmg,std::vector<std::unique_ptr<Enemy>>& enemies,float mana, float maxMana,Hero*hero);
+    void attack(float dmg,std::vector<std::unique_ptr<Enemy>>& enemies,float energy, float maxenergy,Hero*hero);
     void followPlayer(sf::Vector2f position, int rotation);
     float getDmg();
     void draw(sf::RenderWindow& window);

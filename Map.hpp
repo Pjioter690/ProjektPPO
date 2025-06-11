@@ -9,16 +9,14 @@ using namespace std;
 
 class Mapa{
 public:
-    Mapa();
-    //sf::FloatRect getWallBounds(sf::RectangleShape tile);
+    Mapa(int inputscale);
     void draw(sf::RenderWindow& window);
     bool isWall(sf::Vector2f position, float radius);
 private:
-    sf::RectangleShape tile;
-    std::vector<sf::RectangleShape> tiles;
-    sf::RectangleShape wall;
-    std::vector<sf::RectangleShape> walls;
+    sf::Sprite tile;
+    std::vector<sf::Sprite> tiles;
+    sf::Sprite wall;
+    std::vector<sf::Sprite> walls;
+    sf::Texture texture;
 };
-
-
 #endif // MAP_HPP

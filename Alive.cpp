@@ -44,16 +44,16 @@ sf::FloatRect Alive::getGlobalBounds() const {
 }
 //----Hero----
 
-Hero::Hero(float x, float y, float hp, float dmg, float armor, float mana, float speed,float HpRegen)
-    : Alive(x, y, hp, dmg, armor,speed,HpRegen),mana(mana),exp(0),lvl(1), maxMana(mana), maxExp(100/*przykladowa wartosc do ustalenia*/), maxHp(hp),
+Hero::Hero(float x, float y, float hp, float dmg, float armor, float energy, float speed,float HpRegen)
+    : Alive(x, y, hp, dmg, armor,speed,HpRegen),energy(energy),exp(0),lvl(1), maxenergy(energy), maxExp(100/*przykladowa wartosc do ustalenia*/), maxHp(hp),
     rotation(3/*kierunek zwrócenia siê postaci: 1 oznacza górê, 2 prawo, 3 dó³ a 4 lewo, wykorzystywane w ustawianiu hitboxa broni i potancjalnie w animacji*/) {}
 
 
 //Metody do uzyskania danych
-float Hero::getMana() {return mana;}
+float Hero::getenergy() {return energy;}
 float Hero::getExp() {return exp;}
 float Hero::getHp() {return hp;}
-float Hero::getmaxMana() {return maxMana;}
+float Hero::getmaxenergy() {return maxenergy;}
 float Hero::getmaxExp() {return maxExp;}
 float Hero::getmaxHp() {return maxHp;}
 
@@ -64,11 +64,11 @@ void Hero::gainExp()
 void Hero::regenerate()
 {
     //regeneracja Many
-    if(mana<maxMana){
-        float timeSinceLastRegen = ManaRegenClock.getElapsedTime().asSeconds();
+    if(energy<maxenergy){
+        float timeSinceLastRegen = energyRegenClock.getElapsedTime().asSeconds();
         if(timeSinceLastRegen>=0.05){
-            mana = std::min(mana + 5.f, maxMana);
-            ManaRegenClock.restart();
+            energy = std::min(energy + 5.f, maxenergy);
+            energyRegenClock.restart();
         }
     }
     //regeneracja Zdrowia
@@ -84,9 +84,9 @@ void Hero::regenerate()
         }
     }
 }
-void Hero::resetMana()
+void Hero::resetenergy()
 {
-    mana=0;
+    energy=0;
 }
 
 void Hero::control(sf::Time deltaTime, Mapa map1,Weapon* weapon){
@@ -116,16 +116,22 @@ void Hero::control(sf::Time deltaTime, Mapa map1,Weapon* weapon){
 Knight::Knight()
     : Hero(350.0f, 350.0f, 200.0f, 4.f, 20.0f,100.f, 40.f, 2.5f) {
     shape.setFillColor(sf::Color::Red);
+    if (!texture.loadFromFile("ProjektPPO\\textures\\rycerz.png"))
+        cerr << "Nie udalo sie wczytac tekstury rycerz!\n";
 }
 
 Wizard::Wizard()
     : Hero(350.0f, 350.0f, 100.0f, 3.f, 0.0f,200.f, 70.f, 1.25f){
     shape.setFillColor(sf::Color::Blue);
+    if (!texture.loadFromFile("ProjektPPO\\textures\\czarodziej.png"))
+        cerr << "Nie udalo sie wczytac tekstury czarodziej!\n";
 }
 
 Rogue::Rogue()
     : Hero(350.0f, 350.0f, 150.0f, 4.f, 15.0f,50.f, 100.f, 1.5f) {
     shape.setFillColor(sf::Color::Green);
+    if (!texture.loadFromFile("ProjektPPO\\textures\\złodziej.png"))
+        cerr << "Nie udalo sie wczytac tekstury złodziej!\n";
 }
 
 

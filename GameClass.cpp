@@ -8,6 +8,7 @@ Game::Game(): scale(60),
     windowWidth(16*scale),//skala 120 to prawdopodobnie fullscreen
     windowHeight(9*scale),
     mainMenu(windowWidth, windowHeight, scale),
+    map1(scale),
     playerHUD(scale)
     {
         view.setSize(sf::Vector2f{320.0f, 180.0f});
@@ -55,7 +56,7 @@ void Game::update(sf::Time deltaTime) {
         hero->control(deltaTime,map1,dynamic_cast<Weapon*>(mainMenu.getSelectedWeapon()));    // <--- sterowanie!
         hero->update();     // <--- aktualizacja animacji
         hero->regenerate();
-        weapon->attack(hero->getDmg(),enemies,hero->getMana(),hero->getmaxMana(),hero);
+        weapon->attack(hero->getDmg(),enemies,hero->getenergy(),hero->getmaxenergy(),hero);
         if(spawn)
         {
 
