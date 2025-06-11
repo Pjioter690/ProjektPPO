@@ -56,6 +56,11 @@ float Hero::getmaxMana() {return maxMana;}
 float Hero::getmaxExp() {return maxExp;}
 float Hero::getmaxHp() {return maxHp;}
 
+void Hero::gainExp()
+{
+    exp=exp+10;
+}
+
 
 void Hero::control(sf::Time deltaTime, Mapa map1,Weapon* weapon){
     sf::Vector2f nextPosition = position;

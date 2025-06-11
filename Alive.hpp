@@ -34,6 +34,7 @@ class Hero : public Alive{
 public:
     void control(sf::Time deltaTime,Mapa map1,Weapon*); //poruszanie siê postaci¹
     void lvlUp(); //zwiêkszanie poziomu postaci
+    void gainExp();
 
     //Metody do uzyskania danych
     float getMana();

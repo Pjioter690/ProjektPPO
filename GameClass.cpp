@@ -65,14 +65,18 @@ void Game::update(sf::Time deltaTime) {
                 spawn=false;
         }
         playerHUD.update(mWindow, *hero);
-        enemies.erase(remove_if(enemies.begin(), enemies.end(),
-        [](const unique_ptr<Enemy>& enemy) { return !enemy->GetisAlive(); }),
-        enemies.end());
         for(auto& enemy : enemies)
         {
             enemy->update(deltaTime, *hero, enemies,map1);
             enemy->animate(deltaTime);
+            if(!enemy->GetisAlive())
+            {
+                hero->gainExp();
+            }
         }
+        enemies.erase(remove_if(enemies.begin(), enemies.end(),
+        [](const unique_ptr<Enemy>& enemy) { return !enemy->GetisAlive(); }),
+        enemies.end());
     }
     // update wszystkich obiekt�w + logika gry
 }
