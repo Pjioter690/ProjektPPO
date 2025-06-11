@@ -150,40 +150,40 @@ void Enemy::attack(Hero& hero) {
     }
 }
 
-void Enemy::update(const sf::Time& deltaTime, Hero& hero, const vector<unique_ptr<Enemy>>& enemies)
+void Enemy::update(const sf::Time& deltaTime,
+                   Hero& hero,
+                   const std::vector<std::unique_ptr<Enemy>>& enemies,
+                   Mapa& map1)
 {
-    if (!isAlive || isDying)//brak update'u jesli obiekt jest martwy lub umierajacy
-        {return;}
-    if (isStunned)
+    if (!isAlive || isDying) return;
+    if (isStunned) { updateStunCooldown(deltaTime); return; }
+
+    sf::Vector2f dir = hero.getPosition() - position;
+    float len = std::hypot(dir.x, dir.y);
+    if (len != 0) dir /= len;
+
+    if (len < 300.f)
     {
-        cout<<"ma stuna\n";
-        updateStunCooldown(deltaTime);
-        return;
-    }
-    sf::Vector2f direction = hero.getPosition() - position;
-    float length = sqrt(direction.x * direction.x + direction.y * direction.y);
-    if (length != 0)
-    {
-        direction /= length;
-    }
-    if(length<300.0f)
-    {
-        sf::Vector2f nextPosition = position + direction * speed * deltaTime.asSeconds();
-        if (!checkCollision(nextPosition, hero, enemies))
-        {
-            newPosition = nextPosition;
-        }
+        sf::Vector2f proposed = position + dir * speed * deltaTime.asSeconds();
+
+        // kolizja ze ścianą
+        float radius = std::max(frameWidth, frameHeight) / 2.f;
+        if (map1.isWall(proposed, radius))
+            proposed = position;
+
+        // kolizja z graczem i innymi mobami
+        if (!checkCollision(proposed, hero, enemies))
+            newPosition = proposed;
 
         position = newPosition;
         sprite.setPosition(position);
-
-        if (abs(direction.x) > abs(direction.y))
+         if (abs(dir.x) > abs(dir.y))
         {
-            directionEnum = (direction.x > 0) ? Right : Left;
+            directionEnum = (dir.x > 0) ? Right : Left;
         }
         else
         {
-            directionEnum = (direction.y > 0) ? Down : Up;
+            directionEnum = (dir.y > 0) ? Down : Up;
         }
         if (attackCooldownTimer > 0.0f)
         {

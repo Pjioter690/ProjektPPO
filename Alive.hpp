@@ -76,7 +76,7 @@ class Enemy : public Alive
 public:
     virtual ~Enemy();
     void dealDmg(float enemyDmg);
-    void update(const sf::Time& deltaTime, Hero& hero, const vector<std::unique_ptr<Enemy>>& enemies);
+    void update(const sf::Time& deltaTime, Hero& hero, const vector<std::unique_ptr<Enemy>>& enemies, Mapa& map1);
     void draw(sf::RenderWindow& window);
     void animate(const sf::Time& deltaTime);
     bool GetisAlive() const;

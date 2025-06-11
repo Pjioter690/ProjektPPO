@@ -70,7 +70,7 @@ void Game::update(sf::Time deltaTime) {
         enemies.end());
         for(auto& enemy : enemies)
         {
-            enemy->update(deltaTime, *hero, enemies);
+            enemy->update(deltaTime, *hero, enemies,map1);
             enemy->animate(deltaTime);
         }
     }
