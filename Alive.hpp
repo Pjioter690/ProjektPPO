@@ -51,6 +51,7 @@ public:
     float getmaxenergy();
     float getmaxExp();
     float getmaxHp();
+    int getLevel();
 
 protected:
     Hero(float x, float y, float hp, float dmg, float armor, float energy, float speed,float HpRegen);

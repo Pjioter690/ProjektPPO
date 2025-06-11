@@ -67,6 +67,7 @@ void Game::update(sf::Time deltaTime) {
                 spawn=false;
         }
         playerHUD.update(mWindow, *hero);
+        hero->lvlUp();
         for(auto& enemy : enemies)
         {
             enemy->update(deltaTime, *hero, enemies,map1);

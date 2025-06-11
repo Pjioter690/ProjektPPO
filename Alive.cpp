@@ -51,12 +51,32 @@ Hero::Hero(float x, float y, float hp, float dmg, float armor, float energy, flo
 
 
 //Metody do uzyskania danych
+int Hero::getLevel() {return lvl;}
 float Hero::getenergy() {return energy;}
 float Hero::getExp() {return exp;}
 float Hero::getHp() {return hp;}
 float Hero::getmaxenergy() {return maxenergy;}
 float Hero::getmaxExp() {return maxExp;}
 float Hero::getmaxHp() {return maxHp;}
+
+void Hero::lvlUp()
+{
+    if (exp >= maxExp)
+    {
+        cout<<armor<<endl;
+        cout<<dmg<<endl;
+        exp = exp - maxExp;
+        maxExp=maxExp+10;
+        lvl++;
+        dmg=dmg+1.f;
+        cout<<dmg<<endl;
+        if(armor<50)
+        {
+            armor=armor+1.f;
+            cout<<armor<<endl;
+        }
+    }
+}
 
 void Hero::animate(const sf::Time& deltaTime) {
     static const int frameSize = 32; // Rozmiar klatki (można łatwo zmienić)
