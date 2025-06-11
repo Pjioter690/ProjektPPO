@@ -14,8 +14,8 @@ public:
     void Attack(); //pozwala atakowac inne obiekty
     virtual void dealDmg(float enemyDmg); //zadaje obrazenia temu obiektowi
     void addArmor(float armor); //zwieksza armor o zadana wartosc
-    virtual void update();
-    virtual void animate();
+    virtual void update(sf::Time deltaTime);
+    virtual void animate(sf::Time deltaTime);
     sf::Vector2f getPosition() const;
     virtual void draw(sf::RenderWindow& window);
     float getDmg();
@@ -31,6 +31,7 @@ protected:
     float armor;
     float speed;
     float HealthRegen;
+    enum Direction { Up, Down, Left, Right } directionEnum = Down;
 };
 class Hero : public Alive{
 public:
@@ -41,6 +42,7 @@ public:
     sf::Clock HpRegenClock;
     void resetenergy();
     void regenerate();
+    void animate(const sf::Time& deltaTime);
 
     //Metody do uzyskania danych
     float getenergy();
@@ -54,6 +56,7 @@ protected:
     Hero(float x, float y, float hp, float dmg, float armor, float energy, float speed,float HpRegen);
     float animationTimer;
     float frameWidth, frameHeight;
+    sf::Texture texture;
 private:
     float energy;
     float exp;

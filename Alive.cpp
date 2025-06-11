@@ -25,18 +25,18 @@ void Alive::addArmor(float addArmor)
 {
     armor+=addArmor;
 }
-void Alive::update()
+void Alive::update(sf::Time deltaTime)
 {
-    animate();
+    animate(deltaTime);
 }
 
-void Alive::animate()
+void Alive::animate(sf::Time deltaTime)
 {
     //Work in Progress
 }
 void Alive::draw(sf::RenderWindow& window)
 {
-    window.draw(shape);
+    window.draw(sprite);
 }
 float Alive::getDmg() {return dmg;}
 sf::FloatRect Alive::getGlobalBounds() const {
@@ -57,6 +57,48 @@ float Hero::getHp() {return hp;}
 float Hero::getmaxenergy() {return maxenergy;}
 float Hero::getmaxExp() {return maxExp;}
 float Hero::getmaxHp() {return maxHp;}
+
+void Hero::animate(const sf::Time& deltaTime) {
+    static const int frameSize = 128; // Rozmiar klatki (można łatwo zmienić)
+    static const int movementFrames = 4;
+    static const int attackFrames = 3;
+    static const int deathFrames = 4;
+    static float animationSpeed = 0.15f;
+
+    static int currentFrame = 0;
+    static float timer = 0.f;
+
+    timer += deltaTime.asSeconds();
+
+    // Śmierć (jeśli potrzebna, np. gdy hp <= 0)
+    if (hp <= 0) {
+        if (timer >= animationSpeed) {
+            timer = 0.f;
+            currentFrame = (currentFrame + 1) % deathFrames;
+        }
+        sprite.setTextureRect(sf::IntRect(currentFrame * frameSize, frameSize * 4, frameSize, frameSize));
+        sprite.setPosition(position);
+        return;
+    }
+
+    // Ruch (domyślna animacja)
+    if (timer >= animationSpeed) {
+        timer = 0.f;
+        currentFrame = (currentFrame + 1) % movementFrames;
+    }
+
+    // Kierunki: 0 = góra, 1 = prawo, 2 = dół, 3 = lewo
+    int row = 0;
+    switch (rotation) {
+        case 0: row = 0; break; // góra
+        case 1: row = 3; break; // prawo
+        case 2: row = 1; break; // dół
+        case 3: row = 2; break; // lewo
+    }
+
+    sprite.setTextureRect(sf::IntRect(currentFrame * frameSize, row * frameSize, frameSize, frameSize));
+    sprite.setPosition(position);
+}
 
 void Hero::gainExp()
 {
@@ -110,7 +152,7 @@ void Hero::control(sf::Time deltaTime, Mapa map1,Weapon* weapon){
     }
     if(!map1.isWall(nextPosition,20.f)){
             position = nextPosition;
-            shape.setPosition(position);
+            sprite.setPosition(position);
             weapon->followPlayer(position, rotation);
     }
 }
@@ -119,6 +161,7 @@ Knight::Knight()
     shape.setFillColor(sf::Color::Red);
     if (!texture.loadFromFile("ProjektPPO\\textures\\rycerz.png"))
         cerr << "Nie udalo sie wczytac tekstury rycerz!\n";
+    sprite.setTexture(texture);
 }
 
 Wizard::Wizard()
@@ -126,13 +169,15 @@ Wizard::Wizard()
     shape.setFillColor(sf::Color::Blue);
     if (!texture.loadFromFile("ProjektPPO\\textures\\czarodziej.png"))
         cerr << "Nie udalo sie wczytac tekstury czarodziej!\n";
+    sprite.setTexture(texture);
 }
 
 Rogue::Rogue()
     : Hero(350.0f, 350.0f, 150.0f, 4.f, 15.0f,50.f, 100.f, 1.5f) {
     shape.setFillColor(sf::Color::Green);
-    if (!texture.loadFromFile("ProjektPPO\\textures\\złodziej.png"))
-        cerr << "Nie udalo sie wczytac tekstury złodziej!\n";
+    if (!texture.loadFromFile("ProjektPPO\\textures\\zlodziej.png"))
+        cerr << "Nie udalo sie wczytac tekstury zlodziej!\n";
+    sprite.setTexture(texture);
 }
 
 
