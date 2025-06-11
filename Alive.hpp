@@ -12,10 +12,10 @@ class Alive{
 public:
     Alive(float x, float y, float hp, float dmg, float armor, float speed);
     void Attack(); //pozwala atakowac inne obiekty
-    void dealDmg(float enemyDmg); //zadaje obrazenia temu obiektowi
+    virtual void dealDmg(float enemyDmg); //zadaje obrazenia temu obiektowi
     void addArmor(float armor); //zwieksza armor o zadana wartosc
-    void update();
-    void animate();
+    virtual void update();
+    virtual void animate();
     sf::Vector2f getPosition() const;
     virtual void draw(sf::RenderWindow& window);
     float getDmg();
@@ -75,10 +75,10 @@ class Enemy : public Alive
 {
 public:
     virtual ~Enemy();
-    virtual void dealDmg(float enemyDmg);
+    void dealDmg(float enemyDmg);
     void update(const sf::Time& deltaTime, Hero& hero, const vector<std::unique_ptr<Enemy>>& enemies);
-    virtual void draw(sf::RenderWindow& window);
-    virtual void animate(const sf::Time& deltaTime);
+    void draw(sf::RenderWindow& window);
+    void animate(const sf::Time& deltaTime);
     bool GetisAlive() const;
 protected:
     Enemy(float x, float y, float hp, float dmg, float armor, float speed);
@@ -87,10 +87,12 @@ protected:
     float attackCooldown, attackCooldownTimer;
 
     int frameWidth, frameHeight;
-    bool isAlive = true;
-    bool isDying = false;
-    bool isAttacking = false;
-
+    bool isAlive;
+    bool isDying;
+    bool isAttacking;
+    float stunDuration;
+    float stunTimer;
+    bool isStunned;
     void onDeath();
     enum Direction { Up, Down, Left, Right } directionEnum = Down;
     int attackAnimationFrame, deathAnimationFrame, animationFrame;
@@ -98,9 +100,7 @@ protected:
     bool checkCollision(const sf::Vector2f& newPos, Hero& hero, const vector<unique_ptr<Enemy>>& enemies) const;
 
     void updateStunCooldown(const sf::Time& deltaTime);
-    float stunDuration = 1.0f;
-    float stunTimer = 0.0f;
-    bool isStunned = false;
+
     static int killedEnemies;
     sf::Vector2f newPosition;
 };

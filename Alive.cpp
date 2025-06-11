@@ -17,7 +17,7 @@ sf::Vector2f Alive::getPosition() const
 void Alive::dealDmg(float enemyDmg)
 {
     hp -= enemyDmg * (1.0f - armor / 100.0f);
-    cout<<enemyDmg<<endl;
+    cout<<"gracz"<<enemyDmg<<endl;
 }
 
 void Alive::addArmor(float addArmor)
@@ -100,7 +100,8 @@ Rogue::Rogue()
 //----Enemy----
 
 Enemy::Enemy(float x, float y, float hp, float dmg, float armor, float speed): Alive(x, y, hp, dmg, armor,speed), frameHeight(32.f),
-frameWidth(32.f)
+frameWidth(32.f),animationTimer(0.0f), directionEnum(Down), isAlive(true), isDying(false), deathAnimationFrame(0),
+      attackCooldown(2.0f), attackCooldownTimer(0.0f), isStunned(false), stunDuration(2.0f), stunTimer(0.0f)
 {
     sprite.setOrigin(frameWidth / 2.f, frameHeight / 2.f);
     sprite.setPosition(x, y);
@@ -112,13 +113,14 @@ Enemy::~Enemy() = default;
 
 void Enemy::dealDmg(float enemyDmg)
 {
-    hp -=(enemyDmg*(100-armor));
-    if (hp <= 0 && !isDying)
-    {
+    hp -= enemyDmg * (1.0f - armor / 100.0f);
+    if (hp <= 0 && !isDying){
         onDeath();
+        cout<<"zdechl\n";
     }
-    if (!isStunned)
-    {
+
+    if (!isStunned){
+        cout<<"zestunowany\n";
         isStunned = true;
         stunTimer = 0.0f;
     }
@@ -151,9 +153,10 @@ void Enemy::attack(Hero& hero) {
 void Enemy::update(const sf::Time& deltaTime, Hero& hero, const vector<unique_ptr<Enemy>>& enemies)
 {
     if (!isAlive || isDying)//brak update'u jesli obiekt jest martwy lub umierajacy
-        return;
+        {return;}
     if (isStunned)
     {
+        cout<<"ma stuna\n";
         updateStunCooldown(deltaTime);
         return;
     }
@@ -303,7 +306,7 @@ void Enemy::draw(sf::RenderWindow& window)
 }
 
 
-Zombie::Zombie(float x, float y) : Enemy(x, y, 100.0f, 20.0f, 3.0f, 35.0f)
+Zombie::Zombie(float x, float y) : Enemy(x, y, 1000.0f, 20.0f, 3.0f, 35.0f)
 {
     if (!texture.loadFromFile("ProjektPPO\\textures\\zombie.png"))
         cerr << "Nie udalo sie wczytac tekstury zombie!\n";
