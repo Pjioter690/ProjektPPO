@@ -81,7 +81,7 @@ public:
     void animate(const sf::Time& deltaTime);
     bool GetisAlive() const;
 protected:
-    Enemy(float x, float y, float hp, float dmg, float armor, float speed);
+    Enemy(float x, float y, float hp, float dmg, float armor, float speed, float height, float width);
 
     void attack(Hero& hero);
     float attackCooldown, attackCooldownTimer;
