@@ -44,13 +44,9 @@ sf::FloatRect Alive::getGlobalBounds() const {
 }
 //----Hero----
 
-<<<<<<< HEAD
+
 Hero::Hero(float x, float y, float hp, float dmg, float armor, float energy, float speed,float HpRegen)
-    : Alive(x, y, hp, dmg, armor,speed,HpRegen),energy(energy),exp(0),lvl(1), maxenergy(energy), maxExp(100/*przykladowa wartosc do ustalenia*/), maxHp(hp),
-=======
-Hero::Hero(float x, float y, float hp, float dmg, float armor, float mana, float speed,float HpRegen)
-    : Alive(x, y, hp, dmg, armor,speed,HpRegen),mana(mana),exp(0),lvl(1), maxMana(mana), maxExp(10/*przykladowa wartosc do ustalenia*/), maxHp(hp),
->>>>>>> 2e0775f96c63f506e06e3ed214930253722895f1
+    : Alive(x, y, hp, dmg, armor,speed,HpRegen),energy(energy),exp(0),lvl(1), maxenergy(energy), maxExp(10/*przykladowa wartosc do ustalenia*/), maxHp(hp),
     rotation(3/*kierunek zwrócenia siê postaci: 1 oznacza górê, 2 prawo, 3 dó³ a 4 lewo, wykorzystywane w ustawianiu hitboxa broni i potancjalnie w animacji*/) {}
 
 
