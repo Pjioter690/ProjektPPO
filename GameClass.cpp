@@ -20,7 +20,7 @@ void Game::run() {
     while (mWindow.isOpen()) {
         sf::Time deltaTime = clock.restart(); //glowny zegar gry
         processEvents();                      //obsluga event�w
-        update(deltaTime);                    //update wszystkich obiekt�w
+        update(deltaTime);          //update wszystkich obiekt�w
         render();                             //render wszystkich obiekt�w: trzeba rozdzieli� na kilka render�w zale�nie od menu
     }
 }
@@ -54,7 +54,8 @@ void Game::update(sf::Time deltaTime) {
         auto* weapon = dynamic_cast<Weapon*>(mainMenu.getSelectedWeapon());
         hero->control(deltaTime,map1,dynamic_cast<Weapon*>(mainMenu.getSelectedWeapon()));    // <--- sterowanie!
         hero->update();     // <--- aktualizacja animacji
-        weapon->attack(hero->getDmg(),enemies);
+        hero->regenerate();
+        weapon->attack(hero->getDmg(),enemies,hero->getMana(),hero->getmaxMana(),hero);
         if(spawn)
         {
 

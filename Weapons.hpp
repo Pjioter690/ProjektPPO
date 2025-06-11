@@ -7,17 +7,20 @@
 
 class Alive;
 class Enemy;
+class Hero;
 
 class Weapon{
 public:
-    Weapon(float dmg);
-    void attack(float dmg,std::vector<std::unique_ptr<Enemy>>& enemies);
+    Weapon(float dmg, float cooldown);
+    void attack(float dmg,std::vector<std::unique_ptr<Enemy>>& enemies,float mana, float maxMana,Hero*hero);
     void followPlayer(sf::Vector2f position, int rotation);
     float getDmg();
     void draw(sf::RenderWindow& window);
+    sf::Clock attackClock;
 protected:
     sf::RectangleShape weaponHitbox;
     float dmg;
+    float cooldown;
 };
 class Sword : public Weapon{
 public:

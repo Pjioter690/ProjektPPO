@@ -2,8 +2,8 @@
 #include <cmath>
 //----Alive----
 
-Alive::Alive(float x, float y, float hp, float dmg, float armor, float speed)
-    : hp(hp), dmg(dmg), armor(armor), speed(speed), position(x, y){
+Alive::Alive(float x, float y, float hp, float dmg, float armor, float speed, float HpRegen)
+    : hp(hp), dmg(dmg), armor(armor), speed(speed), position(x, y), HealthRegen(HpRegen){
     shape.setRadius(20.f);
     shape.setOrigin({20.f, 20.f});
     shape.setFillColor(sf::Color::White);
@@ -43,8 +43,8 @@ sf::FloatRect Alive::getGlobalBounds() const {
 }
 //----Hero----
 
-Hero::Hero(float x, float y, float hp, float dmg, float armor, float mana)
-    : Alive(x, y, hp, dmg, armor,150.f),mana(mana),exp(0),lvl(1), maxMana(mana), maxExp(100/*przykladowa wartosc do ustalenia*/), maxHp(hp),
+Hero::Hero(float x, float y, float hp, float dmg, float armor, float mana, float speed,float HpRegen)
+    : Alive(x, y, hp, dmg, armor,speed,HpRegen),mana(mana),exp(0),lvl(1), maxMana(mana), maxExp(100/*przykladowa wartosc do ustalenia*/), maxHp(hp),
     rotation(3/*kierunek zwrócenia siê postaci: 1 oznacza górê, 2 prawo, 3 dó³ a 4 lewo, wykorzystywane w ustawianiu hitboxa broni i potancjalnie w animacji*/) {}
 
 
@@ -60,7 +60,30 @@ void Hero::gainExp()
 {
     exp=exp+10;
 }
-
+void Hero::regenerate()
+{
+    //regeneracja Many
+    if(mana<maxMana){
+        float timeSinceLastRegen = ManaRegenClock.getElapsedTime().asSeconds();
+        if(timeSinceLastRegen>=0.05){
+            mana = std::min(mana + 5.f, maxMana);
+            ManaRegenClock.restart();
+        }
+    }
+    //regeneracja Zdrowia
+    if (hp < maxHp) {
+        float timeSinceHealthRegen = HpRegenClock.getElapsedTime().asSeconds();
+        if (timeSinceHealthRegen >= 1.f) {
+            hp = std::min(hp + HealthRegen, maxHp);
+            std::cout << "Zregenerowano zdrowie" <<HealthRegen<< std::endl;
+            HpRegenClock.restart();
+        }
+    }
+}
+void Hero::resetMana()
+{
+    mana=0;
+}
 
 void Hero::control(sf::Time deltaTime, Mapa map1,Weapon* weapon){
     sf::Vector2f nextPosition = position;
@@ -87,24 +110,24 @@ void Hero::control(sf::Time deltaTime, Mapa map1,Weapon* weapon){
     }
 }
 Knight::Knight()
-    : Hero(350.0f, 350.0f, 200.0f, 4.f, 20.0f, 40.f) {
+    : Hero(350.0f, 350.0f, 200.0f, 4.f, 20.0f,100.f, 40.f, 2.5f) {
     shape.setFillColor(sf::Color::Red);
 }
 
 Wizard::Wizard()
-    : Hero(350.0f, 350.0f, 100.0f, 3.f, 0.0f, 70.f) {
+    : Hero(350.0f, 350.0f, 100.0f, 3.f, 0.0f,200.f, 70.f, 1.25f){
     shape.setFillColor(sf::Color::Blue);
 }
 
 Rogue::Rogue()
-    : Hero(350.0f, 350.0f, 150.0f, 4.f, 15.0f, 100.f) {
+    : Hero(350.0f, 350.0f, 150.0f, 4.f, 15.0f,50.f, 100.f, 1.5f) {
     shape.setFillColor(sf::Color::Green);
 }
 
 
 //----Enemy----
 
-Enemy::Enemy(float x, float y, float hp, float dmg, float armor, float speed, float height, float width): Alive(x, y, hp, dmg, armor,speed), frameHeight(height),
+Enemy::Enemy(float x, float y, float hp, float dmg, float armor, float speed, float height, float width): Alive(x, y, hp, dmg, armor,speed, 0.f), frameHeight(height),
 frameWidth(width),animationTimer(0.0f), directionEnum(Down), isAlive(true), isDying(false), deathAnimationFrame(0),
       attackCooldown(2.0f), attackCooldownTimer(0.0f), isStunned(false), stunDuration(2.0f), stunTimer(0.0f)
 {

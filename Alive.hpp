@@ -10,7 +10,7 @@
 
 class Alive{
 public:
-    Alive(float x, float y, float hp, float dmg, float armor, float speed);
+    Alive(float x, float y, float hp, float dmg, float armor, float speed,float HpRegen);
     void Attack(); //pozwala atakowac inne obiekty
     virtual void dealDmg(float enemyDmg); //zadaje obrazenia temu obiektowi
     void addArmor(float armor); //zwieksza armor o zadana wartosc
@@ -29,12 +29,17 @@ protected:
     float dmg;
     float armor;
     float speed;
+    float HealthRegen;
 };
 class Hero : public Alive{
 public:
     void control(sf::Time deltaTime,Mapa map1,Weapon*); //poruszanie siê postaci¹
     void lvlUp(); //zwiêkszanie poziomu postaci
     void gainExp();
+    sf::Clock ManaRegenClock;
+    sf::Clock HpRegenClock;
+    void resetMana();
+    void regenerate();
 
     //Metody do uzyskania danych
     float getMana();
@@ -45,7 +50,7 @@ public:
     float getmaxHp();
 
 protected:
-    Hero(float x, float y, float hp, float dmg, float armor, float mana);
+    Hero(float x, float y, float hp, float dmg, float armor, float mana, float speed,float HpRegen);
 private:
     float mana;
     float exp;
@@ -53,6 +58,7 @@ private:
     float maxMana;
     float maxExp;
     float maxHp;
+
     int rotation;
 };
 class Knight : public Hero{

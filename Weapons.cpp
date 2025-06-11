@@ -1,6 +1,6 @@
 #include"Weapons.hpp"
 
-Weapon::Weapon(float dmg):dmg(dmg){
+Weapon::Weapon(float dmg, float cooldown):dmg(dmg),cooldown(cooldown){
     //weaponHitbox.setFillColor(sf::Color::Transparent);
     weaponHitbox.setFillColor(sf::Color::Black);
     weaponHitbox.setRotation(90.f);
@@ -14,15 +14,15 @@ void Weapon::followPlayer(sf::Vector2f position,int rotation){
 void Weapon::draw(sf::RenderWindow& window){
     window.draw(weaponHitbox);
 }
-Sword::Sword():Weapon(2){
+Sword::Sword():Weapon(2,1){
     weaponHitbox.setSize({20.f,50.f});
     weaponHitbox.setOrigin(10.f,50.f);
 }
-Wand::Wand():Weapon(4){
+Wand::Wand():Weapon(4,2){
     weaponHitbox.setSize({20.f,100.f});
     weaponHitbox.setOrigin(10.f,100.f);
 }
-Knife::Knife():Weapon(3){
+Knife::Knife():Weapon(3,0.5){
     weaponHitbox.setSize({15.f,20.f});
     weaponHitbox.setOrigin(7.5f,20.f);
 }
