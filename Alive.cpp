@@ -159,7 +159,7 @@ void Hero::control(sf::Time deltaTime, Mapa map1,Weapon* weapon){
 Knight::Knight()
     : Hero(350.0f, 350.0f, 200.0f, 4.f, 20.0f,100.f, 40.f, 2.5f) {
     shape.setFillColor(sf::Color::Red);
-    if (!texture.loadFromFile("ProjektPPO\\textures\\rycerz.png"))
+    if (!texture.loadFromFile("ProjektPPO\\textures\\rycerz-kopia.png"))
         cerr << "Nie udalo sie wczytac tekstury rycerz!\n";
     sprite.setTexture(texture);
 }
