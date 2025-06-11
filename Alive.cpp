@@ -17,6 +17,8 @@ sf::Vector2f Alive::getPosition() const
 void Alive::dealDmg(float enemyDmg)
 {
     hp -= enemyDmg * (1.0f - armor / 100.0f);
+    if(hp<0)
+        hp=0;
     cout<<"gracz"<<enemyDmg<<endl;
     fightClock.restart();
 }
@@ -79,44 +81,92 @@ void Hero::lvlUp()
 }
 
 void Hero::animate(const sf::Time& deltaTime) {
-    static const int frameSize = 32; // Rozmiar klatki (można łatwo zmienić)
+    static const int frameSize = 32;
     static const int movementFrames = 4;
     static const int attackFrames = 3;
     static const int deathFrames = 4;
-    static float animationSpeed = 0.15f;
-    sprite.setOrigin({frameSize/2,frameSize/2});
+    static float animationSpeed = 0.25f;
+    sprite.setOrigin({frameSize / 2, frameSize / 2});
     static int currentFrame = 0;
     static float timer = 0.f;
+    static bool isMoving = false;
+    static bool isAttacking = false;
+    static int attackFrame = 0;
 
     timer += deltaTime.asSeconds();
 
-    // Śmierć (jeśli potrzebna, np. gdy hp <= 0)
+    // Śmierć
     if (hp <= 0) {
         if (timer >= animationSpeed) {
             timer = 0.f;
             currentFrame = (currentFrame + 1) % deathFrames;
         }
-        sprite.setTextureRect(sf::IntRect(currentFrame * frameSize , frameSize * 4, frameSize, frameSize));
+        sprite.setTextureRect(sf::IntRect(currentFrame * frameSize, frameSize * 4, frameSize, frameSize));
         sprite.setPosition(position);
         return;
     }
 
-    // Ruch (domyślna animacja)
-    if (timer >= animationSpeed) {
+    isMoving = sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::W) ||
+               sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::S) ||
+               sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::A) ||
+               sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::D);
+
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !isAttacking) {
+        isAttacking = true;
+        attackFrame = 0;
         timer = 0.f;
-        currentFrame = (currentFrame + 1) % movementFrames;
     }
 
-    // Kierunki: 0 = góra, 1 = prawo, 2 = dół, 3 = lewo
-    int row = 0;
-    switch (rotation) {
-        case 0: row = 0; break; // góra
-        case 1: row = 3; break; // prawo
-        case 2: row = 1; break; // dół
-        case 3: row = 2; break; // lewo
+    // Animacja ataku
+    if (isAttacking) {
+        if (timer >= animationSpeed) {
+            timer = 0.f;
+            attackFrame++;
+            if (attackFrame >= attackFrames) {
+                attackFrame = 0;
+                isAttacking = false;
+            }
+        }
+
+        int row = 0;
+        switch (rotation) {
+            case 0: row = 0; break; // góra
+            case 1: row = 3; break; // prawo
+            case 2: row = 1; break; // dół
+            case 3: row = 2; break; // lewo
+        }
+        sprite.setTextureRect(sf::IntRect(attackFrame * frameSize, frameSize * 5 + row * frameSize, frameSize, frameSize));
+        sprite.setPosition(position);
+        return;
     }
 
-    sprite.setTextureRect(sf::IntRect(currentFrame * frameSize, row * frameSize, frameSize, frameSize));
+    // Animacja ruchu tylko jeśli gracz się porusza
+    if (isMoving) {
+        if (timer >= animationSpeed) {
+            timer = 0.f;
+            currentFrame = (currentFrame + 1) % movementFrames;
+        }
+
+        int row = 0;
+        switch (rotation) {
+            case 0: row = 0; break; // góra
+            case 1: row = 3; break; // prawo
+            case 2: row = 1; break; // dół
+            case 3: row = 2; break; // lewo
+        }
+        sprite.setTextureRect(sf::IntRect(currentFrame * frameSize, row * frameSize, frameSize, frameSize));
+    } else {
+        // Jeśli nie porusza się i nie atakuje, ustaw domyślną klatkę
+        int row = 1;
+        switch (rotation) {
+            case 0: row = 0; break;
+            case 1: row = 3; break;
+            case 2: row = 1; break;
+            case 3: row = 2; break;
+        }
+        sprite.setTextureRect(sf::IntRect(frameSize, row * frameSize, frameSize, frameSize));
+    }
+
     sprite.setPosition(position);
 }
 
@@ -179,7 +229,7 @@ void Hero::control(sf::Time deltaTime, Mapa map1,Weapon* weapon){
 Knight::Knight()
     : Hero(350.0f, 350.0f, 200.0f, 4.f, 20.0f,100.f, 40.f, 2.5f) {
     shape.setFillColor(sf::Color::Red);
-    if (!texture.loadFromFile("ProjektPPO\\textures\\rycerz-kopia.png"))
+    if (!texture.loadFromFile("ProjektPPO\\textures\\rycerz.png"))
         cerr << "Nie udalo sie wczytac tekstury rycerz!\n";
     sprite.setTexture(texture);
 }
