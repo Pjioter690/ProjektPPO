@@ -1,6 +1,8 @@
 Sterowanie: WSAD
 Atak: LPM
 
+wersja SFML 2.6.1
+
 Po uruchomieniu gry i kliknięciu przycisku start otwiera nam się okno wyboru postaci. Do wyboru mamy trzy klasy:
 -Czarodziej(Niebieski): o wysokim ataku ale bardzo niskim poziomie zdrowia i pancerza. Atakuje bardzo wolno.
 -Rycerz(Czerwony): o niższych obrażeniach ale niezwykłej wytrzymałości. Atakuje nieco szybciej.
