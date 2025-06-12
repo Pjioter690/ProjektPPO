@@ -14,8 +14,12 @@ public:
 
 private:
     sf::View view;
+    int lvl;
+    int maxEnemies;
+    const int maxCap;
     void processEvents();
     void update(sf::Time deltaTime);
+    void spawnMobs();
     void render();
     int scale;
     int windowWidth, windowHeight;
