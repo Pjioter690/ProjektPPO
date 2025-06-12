@@ -53,16 +53,26 @@ void Game::update(sf::Time deltaTime) {
 
     if (auto* hero = dynamic_cast<Hero*>(mainMenu.getSelectedHero())) {
         auto* weapon = dynamic_cast<Weapon*>(mainMenu.getSelectedWeapon());
-        if(hero->getHp()>0)
+        if(!isPaused)
         {
-            hero->control(deltaTime,map1,dynamic_cast<Weapon*>(mainMenu.getSelectedWeapon()));    // <--- sterowanie!
-            hero->regenerate();
-            hero->animate(deltaTime);
+            if(hero->getHp()>0)
+            {
+                hero->control(deltaTime,map1,dynamic_cast<Weapon*>(mainMenu.getSelectedWeapon()));    // <--- sterowanie!
+                hero->regenerate();
+                hero->animate(deltaTime);
+                playerDead=false;
+                deathAnimationClock.restart();
+            }
+            else
+            {
+                hero->animate(deltaTime);
+                if(deathAnimationClock.getElapsedTime().asSeconds()>=1.41f){
+                    playerDead=true;
+                    isPaused=true;
+                }
+            }
         }
-        if(hero->getHp()<=0)
-        {
 
-        }
         weapon->attack(hero->getDmg(),enemies,hero->getenergy(),hero->getmaxenergy(),hero);
         if(spawn)
         {
@@ -75,15 +85,18 @@ void Game::update(sf::Time deltaTime) {
         }
         playerHUD.update(mWindow, *hero);
         hero->lvlUp();
-        for(auto& enemy : enemies)
-        {
-            enemy->update(deltaTime, *hero, enemies,map1);
-            enemy->animate(deltaTime);
-            if(!enemy->GetisAlive())
+        if(!isPaused){
+            for(auto& enemy : enemies)
             {
-                hero->gainExp();
+                enemy->update(deltaTime, *hero, enemies,map1);
+                enemy->animate(deltaTime);
+                if(!enemy->GetisAlive())
+                {
+                    hero->gainExp();
+                }
             }
         }
+
         enemies.erase(remove_if(enemies.begin(), enemies.end(),
         [](const unique_ptr<Enemy>& enemy) { return !enemy->GetisAlive(); }),
         enemies.end());
@@ -107,7 +120,10 @@ void Game::render() {
         view.setCenter(hero->getPosition());
         mWindow.setView(view);
         map1.draw(mWindow);
-        hero->draw(mWindow);
+        if (playerDead==false) {
+            hero->draw(mWindow);
+        }
+        // hero->draw(mWindow);
         weapon->draw(mWindow);
         for (auto& enemy : enemies)
         {

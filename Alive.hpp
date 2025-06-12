@@ -65,7 +65,6 @@ private:
     float maxenergy;
     float maxExp;
     float maxHp;
-
     int rotation;
 };
 class Knight : public Hero{

@@ -86,6 +86,7 @@ void Hero::animate(const sf::Time& deltaTime) {
     static const int attackFrames = 3;
     static const int deathFrames = 4;
     static float animationSpeed = 0.25f;
+    static float deathAnimationSpeed = 0.5f;
     sprite.setOrigin({frameSize / 2, frameSize / 2});
     static int currentFrame = 0;
     static float timer = 0.f;
@@ -97,7 +98,7 @@ void Hero::animate(const sf::Time& deltaTime) {
 
     // Śmierć
     if (hp <= 0) {
-        if (timer >= animationSpeed) {
+        if (timer >= deathAnimationSpeed) {
             timer = 0.f;
             currentFrame = (currentFrame + 1) % deathFrames;
         }

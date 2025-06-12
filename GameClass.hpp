@@ -22,6 +22,7 @@ private:
 
     sf::RenderWindow mWindow;
     sf::Time mTimePerFrame;
+    sf::Clock deathAnimationClock;
 
 
     MainMenu mainMenu;
@@ -31,8 +32,8 @@ private:
     int posX=1700;
     int posY=500;
     bool spawn=true;
-
-
+    bool isPaused=false;
+    bool playerDead=false;
 };
 
 #endif
