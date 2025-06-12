@@ -171,9 +171,9 @@ void Hero::animate(const sf::Time& deltaTime) {
     sprite.setPosition(position);
 }
 
-void Hero::gainExp()
+void Hero::gainExp(float expValue)
 {
-    exp=exp+10;
+    exp=exp+expValue;
 }
 void Hero::regenerate()
 {
@@ -254,7 +254,7 @@ Rogue::Rogue()
 
 //----Enemy----
 
-Enemy::Enemy(float x, float y, float hp, float dmg, float armor, float speed, float height, float width): Alive(x, y, hp, dmg, armor,speed, 0.f), frameHeight(height),
+Enemy::Enemy(float x, float y, float hp, float dmg, float armor, float speed, float height, float width, float expValue): Alive(x, y, hp, dmg, armor,speed, 0.f), frameHeight(height), expValue(expValue),
 frameWidth(width),animationTimer(0.0f), directionEnum(Down), isAlive(true), isDying(false), deathAnimationFrame(0),
       attackCooldown(2.0f), attackCooldownTimer(0.0f), isStunned(false), stunDuration(2.0f), stunTimer(0.0f)
 {
@@ -461,19 +461,19 @@ void Enemy::draw(sf::RenderWindow& window)
 }
 
 
-Zombie::Zombie(float x, float y) : Enemy(x, y, 80.0f, 20.0f, 3.0f, 35.0f, 21.0f, 21.0f)
+Zombie::Zombie(float x, float y) : Enemy(x, y, 80.0f, 20.0f, 3.0f, 35.0f, 21.0f, 21.0f, 10)
 {
     if (!texture.loadFromFile("ProjektPPO\\textures\\zombie.png"))
         cerr << "Nie udalo sie wczytac tekstury zombie!\n";
 }
 
-Goblin::Goblin(float x, float y) : Enemy(x, y, 30.0f, 10.0f, 1.0f, 55.0f, 18.0f, 18.0f)
+Goblin::Goblin(float x, float y) : Enemy(x, y, 30.0f, 10.0f, 1.0f, 55.0f, 18.0f, 18.0f, 10)
 {
     if (!texture.loadFromFile("ProjektPPO\\textures\\goblin.png"))
         cerr << "Nie udalo sie wczytac tekstury goblina!\n";
 }
 
-Ogre::Ogre(float x, float y) : Enemy(x, y, 1000.0f, 50.0f, 20.0f, 3.0f, 64.0f, 64.0f)
+Ogre::Ogre(float x, float y) : Enemy(x, y, 1000.0f, 50.0f, 20.0f, 3.0f, 64.0f, 64.0f, 1000)
 {
     if (!texture.loadFromFile("ProjektPPO\\textures\\ogr.png"))
         cerr << "Nie udalo sie wczytac tekstury ogra!\n";

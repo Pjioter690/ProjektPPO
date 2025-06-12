@@ -99,12 +99,7 @@ void Game::update(sf::Time deltaTime) {
                 enemy->animate(deltaTime);
                 if(!enemy->GetisAlive())
                 {
-                    enemy->update(deltaTime, *hero, enemies,map1);
-                    enemy->animate(deltaTime);
-                    if(!enemy->GetisAlive())
-                    {
-                        hero->gainExp();
-                    }
+                        hero->gainExp(enemy->expValue);
                 }
             }
         }

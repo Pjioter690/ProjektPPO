@@ -37,7 +37,7 @@ class Hero : public Alive{
 public:
     void control(sf::Time deltaTime,Mapa map1,Weapon*); //poruszanie siê postaci¹
     void lvlUp(); //zwiêkszanie poziomu postaci
-    void gainExp();
+    void gainExp(float expValue);
     sf::Clock energyRegenClock;
     sf::Clock HpRegenClock;
     void resetenergy();
@@ -93,8 +93,9 @@ public:
     void draw(sf::RenderWindow& window);
     void animate(const sf::Time& deltaTime);
     bool GetisAlive() const;
+    float expValue;
 protected:
-    Enemy(float x, float y, float hp, float dmg, float armor, float speed, float height, float width);
+    Enemy(float x, float y, float hp, float dmg, float armor, float speed, float height, float width, float expValue);
 
     void attack(Hero& hero);
     float attackCooldown, attackCooldownTimer;
