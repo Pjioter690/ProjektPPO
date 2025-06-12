@@ -1,7 +1,7 @@
 #include "MainMenu.hpp"
 
 MainMenu::MainMenu(int windowWidth, int windowHeight, int scale) :
-chooseCharacterBackground(Back1), menuBackground(MenuBackground)
+chooseCharacterBackground(Back1), menuBackground(MenuBackground),windowWidth(windowWidth),windowHeight(windowHeight)
 {
     isOpen = true;
     isCharacterSelectionOpen = false;
@@ -77,6 +77,15 @@ chooseCharacterBackground(Back1), menuBackground(MenuBackground)
     scaleObject(gameOver);
     gameOver.setPosition({static_cast<float>(windowWidth) / 2.f, static_cast<float>(windowHeight) / 4.f});
 
+    score.setFont(font);
+    score.setCharacterSize(90);
+    score.setFillColor(sf::Color::White);
+    score.setOutlineThickness(3);
+    score.setOutlineColor(sf::Color::Red);
+    centerOrigin(score);
+    scaleObject(score);
+    score.setPosition({static_cast<float>(windowWidth) / 2.f, static_cast<float>(windowHeight) / 2.f});
+
 }
 void MainMenu::changeMenu(){
     isOpen = !isOpen;
@@ -96,6 +105,7 @@ void MainMenu::drawCharacterChooseScreen(sf::RenderWindow& window){
 }
 void MainMenu::drawGameOverScreen(sf::RenderWindow& window){
     window.draw(gameOver);
+    window.draw(score);
 }
 bool MainMenu::checkIfMainMenuOpen(){
     return isOpen;
@@ -163,6 +173,13 @@ if (chooseKnight.getGlobalBounds().contains(mouse)) {
     } else {
         chooseRogue.setFillColor(sf::Color::Green);
     }
+}
+void MainMenu::setScore(float gameScore)
+{
+    int scoreInt = static_cast<int>(gameScore);
+    score.setString("Score: " + to_string(scoreInt));
+    centerOrigin(score);
+    score.setPosition({static_cast<float>(windowWidth) / 2.f, static_cast<float>(windowHeight) / 2.f});
 }
 
 Alive* MainMenu::getSelectedHero() { return selectedHero.get(); }

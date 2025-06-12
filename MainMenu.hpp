@@ -20,6 +20,7 @@ public:
     void chooseCharacter(const sf::RenderWindow& window);
     bool checkIfMainMenuOpen();
     bool checkIfCharacterChooseScreenOpen();
+    void setScore(float gameScore);
     unique_ptr<Alive> selectedHero;
     unique_ptr<Weapon> selectedWeapon;
     Alive* getSelectedHero();
@@ -34,6 +35,7 @@ private:
     sf::Text start;
     sf::Text gameName;
     sf::Text gameOver;
+    sf::Text score;
     sf::RectangleShape startButton;
     sf::CircleShape chooseKnight, chooseWizard, chooseRogue;
     template<typename T>
@@ -43,5 +45,6 @@ private:
     int WindowScale;
     bool isHovered = false;
     bool isOpen, isCharacterSelectionOpen;
+    int windowWidth,windowHeight;
 };
 #endif // MAINMENU_HPP

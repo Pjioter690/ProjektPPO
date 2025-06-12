@@ -94,6 +94,7 @@ public:
     void animate(const sf::Time& deltaTime);
     bool GetisAlive() const;
     float expValue;
+    static int killedEnemies;
 protected:
     Enemy(float x, float y, float hp, float dmg, float armor, float speed, float height, float width, float expValue);
 
@@ -115,7 +116,7 @@ protected:
 
     void updateStunCooldown(const sf::Time& deltaTime);
 
-    static int killedEnemies;
+
     sf::Vector2f newPosition;
 };
 

@@ -236,7 +236,7 @@ Knight::Knight()
 }
 
 Wizard::Wizard()
-    : Hero(350.0f, 350.0f, 1.0f, 3.f, 0.0f,200.f, 70.f, 1.25f){
+    : Hero(350.0f, 350.0f, 100.0f, 3.f, 0.0f,200.f, 70.f, 1.25f){
     shape.setFillColor(sf::Color::Blue);
     if (!texture.loadFromFile("ProjektPPO\\textures\\czarodziej.png"))
         cerr << "Nie udalo sie wczytac tekstury czarodziej!\n";

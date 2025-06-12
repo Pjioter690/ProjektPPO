@@ -6,6 +6,8 @@
 #include"MainMenu.hpp"
 #include"PlayerHUD.hpp"
 #include"Map.hpp"
+#include"Alive.hpp"
+#include<fstream>
 
 class Game {
 public:
@@ -21,6 +23,7 @@ private:
     void update(sf::Time deltaTime);
     void spawnMobs();
     void render();
+    void save(sf::Time deltaTime, Hero* hero);
     int scale;
     int windowWidth, windowHeight;
 
@@ -38,6 +41,7 @@ private:
     bool spawn=true;
     bool isPaused=false;
     bool playerDead=false;
+    float score=0;
 };
 
 #endif

@@ -77,6 +77,7 @@ void Game::update(sf::Time deltaTime) {
                 if(deathAnimationClock.getElapsedTime().asSeconds()>=1.41f){
                     playerDead=true;
                     isPaused=true;
+                    save(deltaTime,hero);
                 }
             }
         }
@@ -180,3 +181,28 @@ void Game::spawnMobs() {
     }
     cout<<enemies.size()<<endl;
 }
+ void Game::save(sf::Time deltaTime, Hero* hero)
+ {
+     ofstream outFile;
+     outFile.open("ProjektPPO\\saves\\game_stats.txt", ios::app);
+
+     if(!outFile.is_open()){
+        cout<<"Nie mozna otworzyc pliku do zapisu"<<endl;
+        return;
+     }
+
+     score+=deltaTime.asSeconds()*0.1f;
+     score+=hero->getLevel()*5;
+     int K;
+     for(auto& enemy : enemies)
+     {
+         K=enemy->killedEnemies;
+     }
+     score+=K;
+
+     outFile<<"---------------------"<<endl;
+     outFile<<"Score: "<<score<<endl;
+
+     outFile.close();
+     mainMenu.setScore(score);
+ }
