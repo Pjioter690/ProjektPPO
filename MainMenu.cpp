@@ -66,6 +66,17 @@ chooseCharacterBackground(Back1), menuBackground(MenuBackground)
     centerOrigin(chooseRogue);
     scaleObject(chooseRogue);
     chooseRogue.setPosition({static_cast<float>(windowWidth)*3.f/4.f, static_cast<float>(windowHeight) / 2.f});
+
+    gameOver.setFont(font);
+    gameOver.setString("GAME OVER");
+    gameOver.setCharacterSize(120);
+    gameOver.setFillColor(sf::Color::White);
+    gameOver.setOutlineThickness(3);
+    gameOver.setOutlineColor(sf::Color::Red);
+    centerOrigin(gameOver);
+    scaleObject(gameOver);
+    gameOver.setPosition({static_cast<float>(windowWidth) / 2.f, static_cast<float>(windowHeight) / 4.f});
+
 }
 void MainMenu::changeMenu(){
     isOpen = !isOpen;
@@ -82,6 +93,9 @@ void MainMenu::drawCharacterChooseScreen(sf::RenderWindow& window){
     window.draw(chooseKnight);
     window.draw(chooseWizard);
     window.draw(chooseRogue);
+}
+void MainMenu::drawGameOverScreen(sf::RenderWindow& window){
+    window.draw(gameOver);
 }
 bool MainMenu::checkIfMainMenuOpen(){
     return isOpen;

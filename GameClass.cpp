@@ -133,16 +133,18 @@ void Game::render() {
         view.setCenter(hero->getPosition());
         mWindow.setView(view);
         map1.draw(mWindow);
-        if (playerDead==false) {
-            hero->draw(mWindow);
-        }
-        // hero->draw(mWindow);
-        weapon->draw(mWindow);
         for (auto& enemy : enemies)
         {
             enemy->draw(mWindow);
         }
+        if (playerDead==false) {
+            hero->draw(mWindow);
+            weapon->draw(mWindow);
+        }
         playerHUD.draw(mWindow);
+        if(playerDead==true){
+            mainMenu.drawGameOverScreen(mWindow);
+        }
     }
     mWindow.display();
 }
