@@ -5,7 +5,7 @@ PlayerHUD::PlayerHUD(int scale)
 {
     levelText.setFont(font);
     levelText.setString('1');
-    levelText.setCharacterSize(30.f);
+    levelText.setCharacterSize(40.f);
     WindowScale = scale/60;
     if (!font.loadFromFile("ProjektPPO\\fonts\\font1.ttf"))
     {
@@ -34,11 +34,11 @@ PlayerHUD::PlayerHUD(int scale)
     scaleObject(expBarForeground);
     expBarForeground.setPosition({10.0f, 45.0f});
 
-    /*levelText.setFillColor(sf::Color::White);
+    levelText.setFillColor(sf::Color::White);
     levelText.setOutlineColor(sf::Color::Black);
     scaleObject(levelText);
     levelText.setOutlineThickness(3);
-    levelText.setPosition({10.0f, 100.0f});*/
+    levelText.setPosition({280.0f, 35.0f});
 
     //----Pasek Many----
     energyBarBackground.setFillColor(sf::Color(90, 90, 100));
@@ -53,12 +53,12 @@ PlayerHUD::PlayerHUD(int scale)
     energyBarForeground.setPosition({10.0f, 65.0f});
 }
 
-void PlayerHUD::update(const sf::RenderWindow& window, Hero& player)
+void PlayerHUD::update(const sf::RenderWindow& window, Hero& hero)
 {
-    hpBarForeground.setSize(sf::Vector2f(300.0f*(player.getHp()/player.getmaxHp()), 25.0f));
-    expBarForeground.setSize(sf::Vector2f(250.0f*(player.getExp()/player.getmaxExp()), 10.0f));
-    energyBarForeground.setSize(sf::Vector2f(250.0f*(player.getenergy()/player.getmaxenergy()), 10.0f));
-  // levelText.setString("Poziom: " + std::to_string(player->getLevel()));*/
+    hpBarForeground.setSize(sf::Vector2f(300.0f*(hero.getHp()/hero.getmaxHp()), 25.0f));
+    expBarForeground.setSize(sf::Vector2f(250.0f*(hero.getExp()/hero.getmaxExp()), 10.0f));
+    energyBarForeground.setSize(sf::Vector2f(250.0f*(hero.getenergy()/hero.getmaxenergy()), 10.0f));
+    levelText.setString(std::to_string(hero.getLevel()));
 }
 
 void PlayerHUD::draw(sf::RenderWindow& window)
