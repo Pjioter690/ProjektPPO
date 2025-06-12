@@ -12,10 +12,10 @@ Mapa::Mapa(int inputscale){
         cerr << "Nie udalo sie wczytac tekstury sciana_podloga!\n";
     tile.setTexture(texture);
     wall.setTexture(texture);
-    tile.scale({scaleFactor,scaleFactor});
+    tile.scale({scaleFactor,scaleFactor}); //skalowanie mapy
     wall.scale({scaleFactor,scaleFactor});
 
-    while (std::getline(file, line)) {
+    while (std::getline(file, line)) { //odczyt z pliku aby ustawic mape
         for (std::size_t col = 0; col < line.size(); ++col) {
             float posX = col * 400.f * scaleFactor;
             float posY = row * 400.f * scaleFactor;
@@ -41,7 +41,7 @@ void Mapa::draw(sf::RenderWindow& window){
         window.draw(wall);
     }
 }
-bool Mapa::isWall(sf::Vector2f position, float radius){
+bool Mapa::isWall(sf::Vector2f position, float radius){//sprawdzanie kolizji ze sciana
     sf::RectangleShape PlayerCharacter;
     PlayerCharacter.setSize({8.f,16.f});
     sf::FloatRect bounds = PlayerCharacter.getLocalBounds();

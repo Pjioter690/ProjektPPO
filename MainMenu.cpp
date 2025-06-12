@@ -25,7 +25,7 @@ chooseCharacterBackground(Back1), menuBackground(MenuBackground),windowWidth(win
     chooseCharacterBackground.setPosition({0.0f,0.0f});
     chooseCharacterBackground.setTextureRect({{0, 0}, {1920, 1080}});
     chooseCharacterBackground.setScale({0.5f, 0.5f});
-    //projektowanie Main menu
+    // Main menu
     start.setFont(font);
     start.setString("Start Game");
     start.setCharacterSize(30);
@@ -143,7 +143,6 @@ if (chooseKnight.getGlobalBounds().contains(mouse)) {
         if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
             selectedHero = std::make_unique<Knight>();
             selectedWeapon = std::make_unique<Sword>();
-            std::cout << "Wybrano Rycerza!" << std::endl;
             isCharacterSelectionOpen = false;
         }
     } else {
@@ -155,7 +154,6 @@ if (chooseKnight.getGlobalBounds().contains(mouse)) {
         if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
             selectedHero = std::make_unique<Wizard>();
             selectedWeapon = std::make_unique<Wand>();
-            std::cout << "Wybrano Czarodzieja!" << std::endl;
             isCharacterSelectionOpen = false;
         }
     } else {
@@ -167,7 +165,6 @@ if (chooseKnight.getGlobalBounds().contains(mouse)) {
         if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
             selectedHero = std::make_unique<Rogue>();
             selectedWeapon = std::make_unique<Knife>();
-            std::cout << "Wybrano £otra!" << std::endl;
             isCharacterSelectionOpen = false;
         }
     } else {

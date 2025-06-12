@@ -29,8 +29,8 @@ void Game::run() {
     while (mWindow.isOpen()) {
         sf::Time deltaTime = clock.restart(); //glowny zegar gry
         processEvents();                      //obsluga event�w
-        update(deltaTime);          //update wszystkich obiekt�w
-        render();                             //render wszystkich obiekt�w: trzeba rozdzieli� na kilka render�w zale�nie od menu
+        update(deltaTime);                    //update wszystkich obiekt�w
+        render();                             //render wszystkich obiekt�w
     }
 }
 
@@ -42,14 +42,11 @@ void Game::processEvents() {
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
             if (mainMenu.checkIfMainMenuOpen()) {
-                std::cout << "Zamykanie aplikacji: " << mainMenu.checkIfMainMenuOpen() << std::endl;
-                // mWindow.close();
+                mWindow.close();
             } else if (mainMenu.checkIfCharacterChooseScreenOpen()) {
                 mainMenu.changeMenu();
             }
         }
-
-        // tutaj dodawac kolejne eventy
     }
 }
 
@@ -66,14 +63,14 @@ void Game::update(sf::Time deltaTime) {
             if(hero->getHp()>0)
             {
                 hero->control(deltaTime,map1,dynamic_cast<Weapon*>(mainMenu.getSelectedWeapon()));    // <--- sterowanie!
-                hero->regenerate();
-                hero->animate(deltaTime);
+                hero->regenerate(); //regeneracja zdrowia i many
+                hero->animate(deltaTime); //animowanie gracza
                 playerDead=false;
                 deathAnimationClock.restart();
             }
             else
             {
-                hero->animate(deltaTime);
+                hero->animate(deltaTime); //animowanie animacji śmierci
                 if(deathAnimationClock.getElapsedTime().asSeconds()>=1.41f){
                     playerDead=true;
                     isPaused=true;
@@ -86,13 +83,13 @@ void Game::update(sf::Time deltaTime) {
         playerHUD.update(mWindow, *hero);
         hero->lvlUp();
 
-        if(hero->getLevel()>lvl)
+        if(hero->getLevel()>lvl) //spawn przeciwnikow zalezny od poziomu gracza
         {
             lvl=hero->getLevel();
             spawnMobs();
             maxEnemies=min(maxEnemies+5, maxCap);
         }
-        if(!isPaused)
+        if(!isPaused) //kiedy gra jest w stanie pauzy to przeciwnicy przestaja sie poruszac
         {
             for(auto& enemy : enemies)
             {
@@ -110,21 +107,20 @@ void Game::update(sf::Time deltaTime) {
         [](const unique_ptr<Enemy>& enemy) { return !enemy->GetisAlive(); }),
         enemies.end());
     }
-    // update wszystkich obiekt�w + logika gry
 }
 
 void Game::render() {
 
     mWindow.clear();
-    if(mainMenu.checkIfMainMenuOpen())
+    if(mainMenu.checkIfMainMenuOpen()) //rysowanie menu glownego
     {
         mainMenu.draw(mWindow);
     }
-    else if(mainMenu.checkIfCharacterChooseScreenOpen())
+    else if(mainMenu.checkIfCharacterChooseScreenOpen()) //rysowanie screna wyboru postaci
     {
         mainMenu.drawCharacterChooseScreen(mWindow);
     }
-    else if (auto* hero = mainMenu.getSelectedHero()) {
+    else if (auto* hero = mainMenu.getSelectedHero()) { //rysowanie gry
         auto* weapon = dynamic_cast<Weapon*>(mainMenu.getSelectedWeapon());
         view.setCenter(hero->getPosition());
         mWindow.setView(view);
@@ -177,9 +173,7 @@ void Game::spawnMobs() {
                 enemies.emplace_back(std::make_unique<Zombie>(pos.x, pos.y));
             break;
         }
-
     }
-    cout<<enemies.size()<<endl;
 }
  void Game::save(sf::Time deltaTime, Hero* hero)
  {

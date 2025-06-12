@@ -19,23 +19,17 @@ void Alive::dealDmg(float enemyDmg)
     hp -= enemyDmg * (1.0f - armor / 100.0f);
     if(hp<0)
         hp=0;
-    cout<<"gracz"<<enemyDmg<<endl;
     fightClock.restart();
 }
 
-void Alive::addArmor(float addArmor)
+void Alive::addArmor(float addArmor)//
 {
     armor+=addArmor;
 }
-void Alive::update(sf::Time deltaTime)
-{
-    animate(deltaTime);
-}
+void Alive::update(sf::Time deltaTime){}//metoda wirtualna do update
 
-void Alive::animate(sf::Time deltaTime)
-{
-    //Work in Progress
-}
+void Alive::animate(sf::Time deltaTime){}//metoda wirtualna do animowania
+
 void Alive::draw(sf::RenderWindow& window)
 {
     window.draw(sprite);
@@ -65,17 +59,13 @@ void Hero::lvlUp()
 {
     if (exp >= maxExp)
     {
-        cout<<armor<<endl;
-        cout<<dmg<<endl;
         exp = exp - maxExp;
         maxExp=maxExp+10;
         lvl++;
         dmg +=1.f;
-        cout<<dmg<<endl;
         if(armor<50)
         {
             armor=armor+1.f;
-            cout<<armor<<endl;
         }
     }
 }
@@ -192,7 +182,6 @@ void Hero::regenerate()
             float timeSinceHealthRegen = HpRegenClock.getElapsedTime().asSeconds();
             if (timeSinceHealthRegen >= 1.f) {
                 hp = std::min(hp + HealthRegen, maxHp);
-                std::cout << "Zregenerowano zdrowie" <<HealthRegen<< std::endl;
                 HpRegenClock.restart();
             }
         }
@@ -221,7 +210,7 @@ void Hero::control(sf::Time deltaTime, Mapa map1,Weapon* weapon){
         nextPosition.x += speed*deltaTime.asSeconds();
         rotation = 1;
     }
-    if(!map1.isWall(nextPosition,10.f)){
+    if(!map1.isWall(nextPosition,10.f)){//gracz porusza się tylko kiedy jego następna pozycja nie będzie znajdywać się w ścianie
             position = nextPosition;
             sprite.setPosition(position);
             weapon->followPlayer(position, rotation);
@@ -271,11 +260,9 @@ void Enemy::dealDmg(float enemyDmg)
     hp -= enemyDmg * (1.0f - armor / 100.0f);
     if (hp <= 0 && !isDying){
         onDeath();
-        cout<<"zdechl\n";
     }
 
     if (!isStunned){
-        cout<<"zestunowany\n";
         isStunned = true;
         stunTimer = 0.0f;
     }
@@ -287,7 +274,6 @@ void Enemy::onDeath()
     deathAnimationFrame = 0;
     animationTimer = 0.0f;
     killedEnemies++;
-    cout << "Liczba zabitych przeciwników: " << killedEnemies << endl;
 }
 
 void Enemy::attack(Hero& hero) {
@@ -301,7 +287,6 @@ void Enemy::attack(Hero& hero) {
         animationTimer = 0.0f;
         attackAnimationFrame = 0;
         hero.dealDmg(dmg);
-        cout << "Gracz zostal zaatakowany i otrzymal " << dmg << " punktow obrazen.\n";
     }
 }
 
@@ -352,7 +337,7 @@ void Enemy::update(const sf::Time& deltaTime,
     }
 }
 
-void Enemy::updateStunCooldown(const sf::Time& deltaTime) {
+void Enemy::updateStunCooldown(const sf::Time& deltaTime) {//kiedy przeciwnik jest zaatakowany zostanie ogluszony
     if (isStunned) {
         stunTimer += deltaTime.asSeconds();
         if (stunTimer >= stunDuration) {

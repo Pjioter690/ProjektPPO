@@ -7,7 +7,6 @@ void Weapon::attack(float d,std::vector<std::unique_ptr<Enemy>>& enemies,float e
             for (auto& enemy : enemies) {
                 if (weaponHitbox.getGlobalBounds().intersects(enemy->getGlobalBounds())) {
                     enemy->dealDmg(d*this->dmg);
-                    cout<<"wykonano attak"<<endl;
                 }
             }
             hero->resetenergy();

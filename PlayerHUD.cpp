@@ -55,7 +55,7 @@ PlayerHUD::PlayerHUD(int scale)
 
 void PlayerHUD::update(const sf::RenderWindow& window, Hero& hero)
 {
-    hpBarForeground.setSize(sf::Vector2f(300.0f*(hero.getHp()/hero.getmaxHp()), 25.0f));
+    hpBarForeground.setSize(sf::Vector2f(300.0f*(hero.getHp()/hero.getmaxHp()), 25.0f)); //update HUD zaleznie od obecnych poziomow zasobow gracza
     expBarForeground.setSize(sf::Vector2f(250.0f*(hero.getExp()/hero.getmaxExp()), 10.0f));
     energyBarForeground.setSize(sf::Vector2f(250.0f*(hero.getenergy()/hero.getmaxenergy()), 10.0f));
     levelText.setString(std::to_string(hero.getLevel()));
@@ -77,6 +77,6 @@ void PlayerHUD::draw(sf::RenderWindow& window)
 }
 
 template<typename T>
-void PlayerHUD::scaleObject(T& drawable){
+void PlayerHUD::scaleObject(T& drawable){ //template skalujacy wszystkie obiekty do rysowania
     drawable.scale({static_cast<float>(WindowScale),static_cast<float>(WindowScale)});
 }
