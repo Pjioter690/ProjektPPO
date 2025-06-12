@@ -5,7 +5,7 @@ using namespace std;
 #include "GameClass.hpp"
 
 Game::Game(): scale(60),
-    windowWidth(16*scale),//skala 120 to prawdopodobnie fullscreen
+    windowWidth(16*scale),//skala 120 to fullscreen
     windowHeight(9*scale),
     mainMenu(windowWidth, windowHeight, scale),
     map1(scale),
@@ -57,8 +57,12 @@ void Game::update(sf::Time deltaTime) {
         {
             hero->control(deltaTime,map1,dynamic_cast<Weapon*>(mainMenu.getSelectedWeapon()));    // <--- sterowanie!
             hero->regenerate();
+            hero->animate(deltaTime);
         }
-        hero->animate(deltaTime);
+        if(hero->getHp()<=0)
+        {
+
+        }
         weapon->attack(hero->getDmg(),enemies,hero->getenergy(),hero->getmaxenergy(),hero);
         if(spawn)
         {
